@@ -9,7 +9,7 @@ import java.io.PrintStream;
  */
 public class Logger {
 
-    private static PrintStream defaultOut = System.out;
+    private static PrintStream stream = System.out;
 
     private Logger() {
     }//to prevent instantiation
@@ -20,7 +20,7 @@ public class Logger {
     }
 
     public static void log(Exception exc) {
-        log(exc, defaultOut);
+        log(exc, stream);
     }
 
     public static void log(String msg, PrintStream out) {
@@ -28,6 +28,6 @@ public class Logger {
     }
 
     public static void log(String msg) {
-        log(msg, defaultOut);
+        log(msg, stream);
     }
 }
