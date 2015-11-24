@@ -1,0 +1,16 @@
+<!ELEMENT Request (Conditions, Instructions?, PreGenerated?)>
+<!ELEMENT Conditions (ConditionForCalculating | ConditionForChecking+ | ConditionForGenerating)>
+<!ELEMENT ConditionForChecking (Input, Output)>
+<!ATTLIST ConditionForChecking
+	id CDATA #REQUIRED
+	Time CDATA #REQUIRED
+>
+<!ELEMENT ConditionForCalculating (Input)>
+<!ELEMENT ConditionForGenerating (Input)>
+<!ELEMENT PreGenerated (Text,Code,Instructions)>
+<!ELEMENT Instructions (#PCDATA)>
+<!ELEMENT Output (#PCDATA)>
+<!ELEMENT Input (#PCDATA)>
+<!ELEMENT Text (#PCDATA)>
+<!ELEMENT Code (#PCDATA)>
+

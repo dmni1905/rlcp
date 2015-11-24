@@ -1,0 +1,12 @@
+<!ELEMENT Response (CalculatingResult | CheckingResult+ | GeneratingResult)>
+<!ELEMENT CheckingResult (#PCDATA)>
+<!ATTLIST   CheckingResult
+	id CDATA #REQUIRED
+	Time CDATA #REQUIRED
+	Result CDATA #REQUIRED
+>
+<!ELEMENT CalculatingResult (Text,Code)>
+<!ELEMENT GeneratingResult (Text,Code,Instructions)>
+<!ELEMENT Text (#PCDATA)>
+<!ELEMENT Code (#PCDATA)>
+<!ELEMENT Instructions (#PCDATA)>

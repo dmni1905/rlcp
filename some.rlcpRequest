@@ -1,0 +1,33 @@
+CHECK
+url:rlcp://dlc:dlc@virtlab.cde.ifmo.ru:13319
+content-length:3396
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Request SYSTEM "http://de.ifmo.ru/--DTD/Request.dtd">
+
+<Request>
+  <Conditions>
+    <ConditionForChecking id="52322" Time="60">
+      <Input>
+        <!--none-->
+      </Input>
+      <Output>
+        <!--none-->
+      </Output>
+    </ConditionForChecking>
+  </Conditions>
+  <Instructions>
+    <!--step0: ab,aj,bc,cd,de,ef,fg,gh,hi,ij; step1: cf: di: eh: fi: ; step2: 2,2,2,2; step3: cf; step4: di: eh: fi: ; step5: 2,2,2; step6: di; step7: eh: fi: ; step8: 2,2; step9: eh; step10: fi: ; step11: 2; step12: fi; -->
+  </Instructions>
+  <PreGenerated>
+    <Text>
+      <!--Вариант загружен в установку.-->
+    </Text>
+    <Code>
+      <!--{&quot;nodes&quot;: [{ &quot;data&quot;: { &quot;id&quot;: &quot;a&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;b&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;c&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;d&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;e&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;f&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;g&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;h&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;i&quot;, &quot;baz&quot;: 7 }},{ &quot;data&quot;: { &quot;id&quot;: &quot;j&quot;, &quot;baz&quot;: 7 }}], &quot;edges&quot;: [{ &quot;data&quot;: { &quot;id&quot;: &quot;ab&quot;, &quot;source&quot;: &quot;a&quot;, &quot;target&quot;: &quot;b&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;bc&quot;, &quot;source&quot;: &quot;b&quot;, &quot;target&quot;: &quot;c&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;cd&quot;, &quot;source&quot;: &quot;c&quot;, &quot;target&quot;: &quot;d&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;de&quot;, &quot;source&quot;: &quot;d&quot;, &quot;target&quot;: &quot;e&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;ef&quot;, &quot;source&quot;: &quot;e&quot;, &quot;target&quot;: &quot;f&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;fg&quot;, &quot;source&quot;: &quot;f&quot;, &quot;target&quot;: &quot;g&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;gh&quot;, &quot;source&quot;: &quot;g&quot;, &quot;target&quot;: &quot;h&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;hi&quot;, &quot;source&quot;: &quot;h&quot;, &quot;target&quot;: &quot;i&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;ij&quot;, &quot;source&quot;: &quot;i&quot;, &quot;target&quot;: &quot;j&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;aj&quot;, &quot;source&quot;: &quot;a&quot;, &quot;target&quot;: &quot;j&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;eh&quot;, &quot;source&quot;: &quot;e&quot;, &quot;target&quot;: &quot;h&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;fi&quot;, &quot;source&quot;: &quot;f&quot;, &quot;target&quot;: &quot;i&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;di&quot;, &quot;source&quot;: &quot;d&quot;, &quot;target&quot;: &quot;i&quot; }},{ &quot;data&quot;: { &quot;id&quot;: &quot;cf&quot;, &quot;source&quot;: &quot;c&quot;, &quot;target&quot;: &quot;f&quot; }}]}-->
+    </Code>
+    <Instructions>
+      <!--[ab, bc, cd, de, ef, fg, gh, hi, ij, aj, eh, fi, di, cf]-->
+    </Instructions>
+  </PreGenerated>
+</Request>
