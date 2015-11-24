@@ -10,6 +10,8 @@ import rlcp.method.Generate;
 import rlcp.method.RlcpMethod;
 import rlcp.util.Util;
 
+import static rlcp.util.Util.*;
+
 /**
  * Class for header of RlcpRequest entity. Contains url as RlcpUrl instance,
  * content length as integer and method as uppercased String returned by {@code RlcpMethod.getName()}
@@ -36,7 +38,7 @@ public class RlcpRequestHeader implements Serializable{
      * @throws IllegalArgumentException if method or url is null
      */
     public RlcpRequestHeader(RlcpMethod method, RlcpUrl url, int contentLength) throws IllegalArgumentException {
-        Util.checkNotNull("Method or url are null in RlcpRequestHeader constructor", method, url);
+        checkNotNull("Method or url are null in RlcpRequestHeader constructor", method, url);
         this.method = method.getName().toUpperCase();
         this.url = url;
         this.contentLength = contentLength;
@@ -51,13 +53,13 @@ public class RlcpRequestHeader implements Serializable{
     public String toString() {
         StringBuilder headerBuilder = new StringBuilder();
 
-        headerBuilder.append(method).append(Util.winLineSeparator);
-        headerBuilder.append("url:").append(url).append(Util.winLineSeparator);
-        headerBuilder.append("content-length:").append(contentLength).append(Util.winLineSeparator);
+        headerBuilder.append(method).append(winLineSeparator);
+        headerBuilder.append("url:").append(url).append(winLineSeparator);
+        headerBuilder.append("content-length:").append(contentLength).append(winLineSeparator);
 
         for (String name : headerFields.getHeaderFieldNames()) {
             String value = headerFields.getHeaderFieldByName(name);
-            headerBuilder.append(name).append(":").append(value).append(Util.winLineSeparator);
+            headerBuilder.append(name).append(":").append(value).append(winLineSeparator);
         }
 
         return headerBuilder.toString();
@@ -71,26 +73,26 @@ public class RlcpRequestHeader implements Serializable{
      * @throws BadRlcpHeaderException
      */
     public static RlcpRequestHeader parse(String requestHeaderString) throws BadRlcpHeaderException {
-        Util.checkStringNotNullNotEmpty(requestHeaderString);
+        checkStringNotNullNotEmpty(requestHeaderString);
 
-        String lineSeparator = Util.getLineSeparatorFor(requestHeaderString);
+        String lineSeparator = getLineSeparatorFor(requestHeaderString);
 
         String[] headers = requestHeaderString.split(lineSeparator);
 
-        String parsedMethod = Util.parseMethodHeaderField(headers[0], requestHeaderString);
+        String parsedMethod = parseMethodHeaderField(headers[0], requestHeaderString);
 
         RlcpUrl parsedUrl = null;
         int parsedContentLength = 0;
         Map<String, String> optionalHeaderFields = new HashMap<String, String>();
         for (String header : headers) {
             if (header.toLowerCase().startsWith("content-length:")) {
-                parsedContentLength = Util.parseContentLengthHeaderField(header, requestHeaderString.toLowerCase());
+                parsedContentLength = parseContentLengthHeaderField(header, requestHeaderString.toLowerCase());
             } else if (header.startsWith("url:")) {
-                parsedUrl = Util.parseUrlHeaderField(headers[1], requestHeaderString);
+                parsedUrl = parseUrlHeaderField(headers[1], requestHeaderString);
             } else {
                 try {
-                    String headerFieldName = Util.parseHeaderFieldName(header);
-                    String headerFieldValue = Util.parseNamedHeaderField(header, headerFieldName + ":");
+                    String headerFieldName = parseHeaderFieldName(header);
+                    String headerFieldValue = parseNamedHeaderField(header, headerFieldName + ":");
                     optionalHeaderFields.put(headerFieldName, headerFieldValue);
                 } catch (BadRlcpHeaderException brhe) {
                 }

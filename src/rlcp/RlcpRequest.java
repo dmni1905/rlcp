@@ -8,6 +8,8 @@ import rlcp.exception.BadRlcpResponseException;
 import rlcp.method.RlcpMethod;
 import rlcp.util.Util;
 
+import static rlcp.util.Util.*;
+
 /**
  * Interface for RLCP-request entity. Contains RlcpRequestHeader,
  * RlcpRequestBody implemenattion and getters for them. Also provides method to
@@ -79,9 +81,9 @@ public abstract class RlcpRequest implements Serializable{
     public String toString(){
         return new StringBuilder()
                 .append(getHeader().toString())
-                .append(Util.winLineSeparator)
+                .append(winLineSeparator)
                 .append(getBody().toString())
-                .append(Util.unixLineSeparator)
+                .append(unixLineSeparator)
                 .toString();
     }
 }
