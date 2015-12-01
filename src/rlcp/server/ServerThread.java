@@ -141,7 +141,7 @@ public class ServerThread extends Thread {
     }
 
     private void executeMethodForRequest(ServerMethod method, RlcpRequest rlcpRequest) throws Exception {
-        RlcpResponse rlcpResponse = method.execute(rlcpRequest, processorFactoryContainer);
+        RlcpResponse rlcpResponse = method.execute(rlcpRequest, processorFactoryContainer, config);
         sendResponse(rlcpResponse);
         Logger.log("Request method " + method + " is executed");
     }

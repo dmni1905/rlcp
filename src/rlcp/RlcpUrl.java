@@ -62,10 +62,10 @@ public class RlcpUrl implements Serializable{
         Util.checkStringNotNullNotEmpty(rlcpUrlString);
 
         String operable = rlcpUrlString;
-        if (operable.indexOf("flow://") != 0) {
+        if (operable.indexOf("rlcp://") != 0) {
             throw new BadRlcpUrlException(rlcpUrlString + " is not rlcpUrl");
         }
-        operable = rlcpUrlString.substring(("flow://").length());
+        operable = rlcpUrlString.substring(("rlcp://").length());
 
         String login = null;
         String password = null;
@@ -96,9 +96,9 @@ public class RlcpUrl implements Serializable{
     @Override
     public String toString() {
         if (login != null && password != null) {
-            return "flow://" + login + ":" + password + "@" + host + ":" + port;
+            return "rlcp://" + login + ":" + password + "@" + host + ":" + port;
         } else {
-            return "flow://" + host + ":" + port;
+            return "rlcp://" + host + ":" + port;
         }
 
     }

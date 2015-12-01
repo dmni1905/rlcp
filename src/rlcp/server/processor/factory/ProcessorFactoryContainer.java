@@ -2,7 +2,11 @@ package rlcp.server.processor.factory;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import rlcp.calculate.CalculatingResult;
 import rlcp.exception.NotImplementedMethodException;
+import rlcp.generate.GeneratingResult;
+import rlcp.method.Calculate;
 import rlcp.server.processor.*;
 
 /**
@@ -24,7 +28,7 @@ public class ProcessorFactoryContainer {
         return getProcessor(PreCheckProcessor.class);
     }
 
-    public void setPreCheckLogicFactory(ProcessorFactory<PreCheckProcessor> factory) {
+    public void setPreCheckProcessorFactory(ProcessorFactory<PreCheckProcessor> factory) {
         putProcessorFactory(PreCheckProcessor.class, factory);
     }
 
@@ -121,10 +125,21 @@ public class ProcessorFactoryContainer {
      * @param clazz
      * @param factory
      */
-    private <T extends Processor> void putProcessorFactory(Class<T> clazz, ProcessorFactory<? super T> factory) {
+    private <T extends Processor> void putProcessorFactory(Class<T> clazz, ProcessorFactory<T> factory) {
         storage.put(clazz, factory);
     }
 
+
+
+    public static void main(String[] args) {
+        new ProcessorFactoryContainer().putProcessorFactory(CalculateProcessor.class, new DefaultConstructorProcessorFactory<CalculateProcessor>(CaclculateImpl.class));
+    }
+    private static class CaclculateImpl implements  CalculateProcessor{
+        @Override
+        public CalculatingResult calculate(String condition, String instructions, GeneratingResult generatingResult) {
+            return null;
+        }
+    }
 
 
 }

@@ -10,9 +10,9 @@ import java.util.Arrays;
  */
 public class DefaultConstructorProcessorFactory<T extends Processor> implements ProcessorFactory<T> {
 
-    private Class<T> clazz;
+    private Class<? extends T> clazz;
 
-    public DefaultConstructorProcessorFactory(Class<T> clazz) {
+    public DefaultConstructorProcessorFactory(Class<? extends T> clazz) {
 
         boolean hasDefaultConstructor = Arrays.stream(clazz.getConstructors()).anyMatch(
                 c ->

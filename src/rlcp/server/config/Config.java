@@ -5,6 +5,9 @@ import java.util.List;
 import rlcp.server.logger.Logger;
 import rlcp.util.Util;
 
+import static rlcp.util.Constants.rlcpDefaultCheckUnitTimeLimitInSec;
+import static rlcp.util.Constants.rlcpDefaultRequestFlowTimeLimitInSec;
+
 /**
  * Class for RLCP-server configuration storing. Unmodifiable.
  */
@@ -53,6 +56,13 @@ public class Config {
         Logger.log("Port: " + port);
         Logger.log("Users: " + users);
     }
-    
+
+    public long getRequestFlowTimeLimit(){
+        return rlcpDefaultRequestFlowTimeLimitInSec;
+    }
+
+    public long getCheckUnitTimeLimit(){
+        return rlcpDefaultCheckUnitTimeLimitInSec;
+    }
     
 }

@@ -38,4 +38,8 @@ public class Constants {
     public static final String xPath_selectInstructions = REQUEST + "/" + INSTRUCTIONS + "/comment()";
     public static final String xPath_selectConditionForGenerating = "//" + CONDITIONS + "/" + CONDITION_FOR_GENERATING + "/" + INPUT + "/comment()";
     public static final String xPath_selectConditionForCalculating = "//" + CONDITIONS + "/" + CONDITION_FOR_CALCULATING + "/" + INPUT + "/comment()";
+
+
+    public static final long rlcpDefaultCheckUnitTimeLimitInSec = 5;
+    public static final long rlcpDefaultRequestFlowTimeLimitInSec = 10;
 }

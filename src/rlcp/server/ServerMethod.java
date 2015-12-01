@@ -8,6 +8,7 @@ import rlcp.method.Calculate;
 import rlcp.method.Check;
 import rlcp.method.Generate;
 import rlcp.method.RlcpMethod;
+import rlcp.server.config.Config;
 import rlcp.server.processor.factory.ProcessorFactoryContainer;
 import rlcp.server.flow.RlcpCalculateFlow;
 import rlcp.server.flow.RlcpCheckFlow;
@@ -25,7 +26,7 @@ public enum ServerMethod {
     CHECK(Check.getInstance()) {
 
         @Override
-        public RlcpRequestFlow getProcessor() {
+        public RlcpRequestFlow getFlow() {
             return new RlcpCheckFlow();
         }
     },
@@ -35,7 +36,7 @@ public enum ServerMethod {
     CALCULATE(Calculate.getInstance()) {
 
         @Override
-        public RlcpRequestFlow getProcessor() {
+        public RlcpRequestFlow getFlow() {
             return new RlcpCalculateFlow();
         }
     },
@@ -45,7 +46,7 @@ public enum ServerMethod {
     GENERATE(Generate.getInstance()) {
 
         @Override
-        public RlcpRequestFlow getProcessor() {
+        public RlcpRequestFlow getFlow() {
             return new RlcpGenerateFlow();
         }
     },
@@ -61,8 +62,8 @@ public enum ServerMethod {
         }
 
         @Override
-        public RlcpRequestFlow getProcessor() {
-            throw new UnsupportedRlcpMethodException("INVALID.getProcessor will never be supported");
+        public RlcpRequestFlow getFlow() {
+            throw new UnsupportedRlcpMethodException("INVALID.getFlow will never be supported");
         }
     };
     private RlcpMethod method;
@@ -81,13 +82,13 @@ public enum ServerMethod {
      * @return rlcpResponse instance
      * @throws Exception
      */
-    public RlcpResponse execute(RlcpRequest rlcpRequest, ProcessorFactoryContainer processorFactoryContainer) throws Exception {
+    public RlcpResponse execute(RlcpRequest rlcpRequest, ProcessorFactoryContainer processorFactoryContainer, Config config) throws Exception {
         checkRequestMethodIsSameAsExpected(this, rlcpRequest);
-        RlcpResponse rlcpResponse = getProcessor().processRequestWithLogic(rlcpRequest, processorFactoryContainer);
+        RlcpResponse rlcpResponse = getFlow().processRequest(rlcpRequest, processorFactoryContainer, config);
         return rlcpResponse;
     }
 
-    public abstract RlcpRequestFlow getProcessor();
+    public abstract RlcpRequestFlow getFlow();
 
     /**
      * Parses rlcpRequest instance from its String representation using {@code flow.Parser}

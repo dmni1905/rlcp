@@ -25,6 +25,7 @@ import java.util.List;
 public class RlcpCheckFlow extends RlcpRequestFlow {
 
 
+
     @Override
     public RlcpCheckResponseBody processBody(ProcessorFactoryContainer processorFactoryContainer, RlcpRequestBody body) {
         RlcpCheckRequestBody requestBody = (RlcpCheckRequestBody) body;
@@ -66,7 +67,7 @@ public class RlcpCheckFlow extends RlcpRequestFlow {
         return checkingResult;
     }
 
-    private static CheckingResult performCheck(RlcpCheckRequestBody requestBody, PreCheckResult preCheckResult, ConditionForChecking checkUnit, CheckProcessor checkProcessor) {
+    private CheckingResult performCheck(RlcpCheckRequestBody requestBody, PreCheckResult preCheckResult, ConditionForChecking checkUnit, CheckProcessor checkProcessor) {
         CheckingResult checkingResult;
         if (checkProcessor instanceof PreCheckResultAware) {
             ((PreCheckResultAware) checkProcessor).setPreCheckResult(preCheckResult);
@@ -78,7 +79,8 @@ public class RlcpCheckFlow extends RlcpRequestFlow {
                 requestBody.getPreGenerated()
         );
 
-        long elapsedTime = tryToRunCheckThreadAndGetElapsedTime(checkThread, checkUnit.getTime());
+        long checkUnitTimeLimit = checkUnit.getTime() > 0 ? checkUnit.getTime() : super.config.getCheckUnitTimeLimit();
+        long elapsedTime = tryToRunCheckThreadAndGetElapsedTime(checkThread, checkUnitTimeLimit);
         CheckingSingleConditionResult cscResult = checkThread.getResult();
         String result;
         try {
