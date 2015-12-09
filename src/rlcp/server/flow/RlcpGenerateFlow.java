@@ -10,11 +10,18 @@ import rlcp.server.processor.factory.ProcessorFactoryContainer;
 
 /**
  * Class for processing RLCP Generate method requests.
- * 
- * @author Eugene Efimchick
  */
 public class RlcpGenerateFlow extends RlcpRequestFlow {
 
+    /**
+     * The container need to put an instance {@code GenerateProcessor}.
+     * As a result, request body for generating will be processed and will be returned response body generating.
+     *
+     * @param container flow modules container
+     * @param body      Rlcp request body instance
+     * @return body of RLCP response for Calculate method
+     * @see GenerateProcessor
+     */
     @Override
     public RlcpGenerateResponseBody processBody(ProcessorFactoryContainer container, RlcpRequestBody body) {
         GenerateProcessor generateProcessor = container.getProcessor(GenerateProcessor.class);

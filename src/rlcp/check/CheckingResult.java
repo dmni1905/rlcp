@@ -3,8 +3,7 @@ package rlcp.check;
 import java.io.Serializable;
 
 /**
- * Class for checking result entity. Unmodifiable. 
- * @author Eugene Efimchick
+ * Class for checking result entity. Unmodifiable.
  */
 public class CheckingResult implements Serializable {
 

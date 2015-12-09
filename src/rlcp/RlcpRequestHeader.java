@@ -3,6 +3,7 @@ package rlcp;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
 import rlcp.exception.BadRlcpHeaderException;
 import rlcp.method.Calculate;
 import rlcp.method.Check;
@@ -16,13 +17,11 @@ import static rlcp.util.Util.*;
  * Class for header of RlcpRequest entity. Contains url as RlcpUrl instance,
  * content length as integer and method as uppercased String returned by {@code RlcpMethod.getName()}
  * method (due to suport earlier protocol versions).
- *
+ * <p>
  * Also provides static methods to build RlcpRequestHeader instances for each
  * Method.
- *
- * @author Eugene Efimchick
  */
-public class RlcpRequestHeader implements Serializable{
+public class RlcpRequestHeader implements Serializable {
 
     private String method;
     private RlcpUrl url;
@@ -32,8 +31,8 @@ public class RlcpRequestHeader implements Serializable{
     /**
      * Simple constructor.
      *
-     * @param method RlcpMethod instance. Should be not null
-     * @param url url to RLCP-server. Should be not null
+     * @param method        RlcpMethod instance. Should be not null
+     * @param url           url to RLCP-server. Should be not null
      * @param contentLength content length of request body
      * @throws IllegalArgumentException if method or url is null
      */
@@ -109,7 +108,7 @@ public class RlcpRequestHeader implements Serializable{
             String value = entry.getValue();
             requestHeader.getOptionalHeaderFieldsContainer().setHeaderField(name, value);
         }
-        
+
         return requestHeader;
     }
 
@@ -144,7 +143,7 @@ public class RlcpRequestHeader implements Serializable{
      * Returns new instanse of RlcpRequestHeader for Check RLCP-method with
      * specified url and contantLength.
      *
-     * @param url url to RLCP-server
+     * @param url           url to RLCP-server
      * @param contentLength content length of request body
      * @return new instanse of RlcpRequestHeader for Check RLCP-method with
      * specified url and contantLength
@@ -157,7 +156,7 @@ public class RlcpRequestHeader implements Serializable{
      * Returns new instanse of RlcpRequestHeader for Generate RLCP-method with
      * specified url and contantLength.
      *
-     * @param url url to RLCP-server
+     * @param url           url to RLCP-server
      * @param contentLength content length of request body
      * @return new instanse of RlcpRequestHeader for Generate RLCP-method with
      * specified url and contantLength
@@ -170,7 +169,7 @@ public class RlcpRequestHeader implements Serializable{
      * Returns new instanse of RlcpRequestHeader for Calculate RLCP-method with
      * specified url and contantLength.
      *
-     * @param url url to RLCP-server
+     * @param url           url to RLCP-server
      * @param contentLength content length of request body
      * @return new instanse of RlcpRequestHeader for Calculate RLCP-method with
      * specified url and contantLength

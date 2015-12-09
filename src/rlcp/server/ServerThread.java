@@ -14,8 +14,6 @@ import rlcp.util.Util;
 
 /**
  * Class for single request processing thread.
- *
- * @author Eugene Efimchick
  */
 public class ServerThread extends Thread {
 

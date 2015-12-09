@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 /**
  * Class for condition for checking entity. Unmodifiable.
- * @author Eugene Efimchick
  */
-public class ConditionForChecking implements Serializable{
+public class ConditionForChecking implements Serializable {
 
     private int id;
     private long time;
@@ -15,9 +14,10 @@ public class ConditionForChecking implements Serializable{
 
     /**
      * Simple constructor.
-     * @param id identifier
-     * @param time time limit in milliseconds
-     * @param input input data
+     *
+     * @param id     identifier
+     * @param time   time limit in milliseconds
+     * @param input  input data
      * @param output expected output data
      */
     public ConditionForChecking(int id, long time, String input, String output) {
@@ -29,6 +29,7 @@ public class ConditionForChecking implements Serializable{
 
     /**
      * Returns identifier.
+     *
      * @return identifier
      */
     public int getId() {
@@ -37,6 +38,7 @@ public class ConditionForChecking implements Serializable{
 
     /**
      * Returns input data.
+     *
      * @return input data
      */
     public String getInput() {
@@ -45,6 +47,7 @@ public class ConditionForChecking implements Serializable{
 
     /**
      * Returns expected output data.
+     *
      * @return expected output data
      */
     public String getOutput() {
@@ -53,6 +56,7 @@ public class ConditionForChecking implements Serializable{
 
     /**
      * Returns time limit in milliseconds.
+     *
      * @return time limit in milliseconds
      */
     public long getTime() {

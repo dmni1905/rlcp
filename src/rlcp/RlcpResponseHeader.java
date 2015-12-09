@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rlcp.exception.BadRlcpHeaderException;
 import rlcp.util.Util;
 
@@ -16,13 +17,11 @@ import rlcp.util.Util;
  * response Code as String returned by {@code RlcpCode.getCode()}, and errors as
  * String returned by {@code RlcpCode.getMeassage()} (may contain additinal
  * errors info) or be null. Unmodifiable.
- *
+ * <p>
  * Also provides static methods for getting successful and failed header
  * instances.
- *
- * @author Eugene Efimchick
  */
-public class RlcpResponseHeader implements Serializable{
+public class RlcpResponseHeader implements Serializable {
 
     private RlcpCode responseCode;
     private String errors;
@@ -32,8 +31,8 @@ public class RlcpResponseHeader implements Serializable{
     /**
      * Simple constructor.
      *
-     * @param responseCode RlcpCode instance. Should not be null.
-     * @param errors String containing additinal errors info. May be null.
+     * @param responseCode  RlcpCode instance. Should not be null.
+     * @param errors        String containing additinal errors info. May be null.
      * @param contentLength length of RlcpResponse body
      * @throws IllegalArgumentException if RlcpCode is null.
      */
@@ -51,23 +50,23 @@ public class RlcpResponseHeader implements Serializable{
      */
     @Override
     public String toString() {
-        
+
         StringBuilder headerBuilder = new StringBuilder();
-        
+
         headerBuilder.append(responseCode.getCode());
-        
+
         if (!isSuccessful()) {
             headerBuilder.append(" ").append(getErrors());
         }
-        
+
         headerBuilder.append(Util.nativeLineSeparator);
         headerBuilder.append("content-length:").append(contentLength).append(Util.nativeLineSeparator);
-        
+
         for (String name : headerFields.getHeaderFieldNames()) {
             String value = headerFields.getHeaderFieldByName(name);
             headerBuilder.append(name).append(":").append(value).append(Util.nativeLineSeparator);
         }
-        
+
         return headerBuilder.toString();
     }
 
@@ -125,7 +124,7 @@ public class RlcpResponseHeader implements Serializable{
                 }
             }
         }
-        
+
         RlcpResponseHeader responseHeader = new RlcpResponseHeader(RlcpCode.getByCode(parsedResponseCode), parsedErrors, parsedContentLength);
         for (Map.Entry<String, String> entry : optionalHeaderFields.entrySet()) {
             String name = entry.getKey();
@@ -191,19 +190,20 @@ public class RlcpResponseHeader implements Serializable{
      * Returns new header with specified errorCode and errors message.
      *
      * @param failCode errorCode as returned by {@code RlcpCode.getCode()}
-     * @param errors errors Message
+     * @param errors   errors Message
      * @return new header with specified errorCode and errors message
      */
     public static RlcpResponseHeader createFailedHeader(String failCode, String errors) {
         return new RlcpResponseHeader(RlcpCode.getByCode(failCode), errors, 0);
     }
-    
-     /**
+
+    /**
      * Returns special header fields container, where all other (not content-length) fields stored.
+     *
      * @return special header fields container, where all other (not content-length) fields stored.
      */
     public RlcpHeaderFieldsContainer getOptionalHeaderFieldsContainer() {
         return headerFields;
     }
-    
+
 }

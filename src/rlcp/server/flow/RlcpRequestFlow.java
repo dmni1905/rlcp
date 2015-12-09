@@ -12,18 +12,19 @@ import rlcp.server.processor.factory.ProcessorFactoryContainer;
 import java.util.concurrent.*;
 
 /**
- *
- * @author efimchick
+ * Class for processing RLCP-method requests.
  */
 public abstract class RlcpRequestFlow {
 
     protected Config config;
+
     /**
      * Processes RLCP request using specified RequestProcessLogic from LogicContainer.
-     * 
-     * @param rlcpRequest Rlcp Request
+     *
+     * @param rlcpRequest               Rlcp request
      * @param processorFactoryContainer container of RequestProcessLogic instances
-     * @return Rlcp Response
+     * @param config                    server config
+     * @return Rlcp response
      */
     public RlcpResponse processRequest(RlcpRequest rlcpRequest, ProcessorFactoryContainer processorFactoryContainer, Config config) {
         this.config = config;
@@ -34,7 +35,7 @@ public abstract class RlcpRequestFlow {
         try {
             RlcpResponseBody responseBody = future.get(config.getRequestFlowTimeLimit(), TimeUnit.SECONDS);
             return responseBody.getMethod().buildResponse(responseBody);
-        } catch (TimeoutException|ExecutionException|InterruptedException e) {
+        } catch (TimeoutException | ExecutionException | InterruptedException e) {
             future.cancel(true);
             e.printStackTrace();
             throw new RlcpException("Failed to process request");
@@ -49,11 +50,12 @@ public abstract class RlcpRequestFlow {
 //     * @return necessary RequestProcessLogic instance from LogicContainer
 //     */
 //    public abstract RequestProcessAlgorithm getAlgorithmFactory(LogicContainer logicContainer);
-    
+
     /**
      * Processes RlcpRequestBody with specified RequestProcessLogic. Returns body of RlcpResponse.
-     * @param processorFactoryContainer
-     * @param body Rlcp request body instance
+     *
+     * @param processorFactoryContainer flow modules container
+     * @param body                      Rlcp request body instance
      * @return body of RlcpResponse
      */
     public abstract RlcpResponseBody processBody(ProcessorFactoryContainer processorFactoryContainer, RlcpRequestBody body);

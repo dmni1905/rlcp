@@ -11,8 +11,6 @@ import static rlcp.util.Util.*;
 
 /**
  * Interface for RlcpRequest body entity.
- *
- * @author Eugene Efimchick
  */
 public abstract class RlcpRequestBody implements Serializable {
 
@@ -32,7 +30,7 @@ public abstract class RlcpRequestBody implements Serializable {
      * built for RlcpMethod of this Body with specified url.
      *
      * @param url url to RLCP-server
-     * @return RlcpRequest instanse consists of this body and RlcpRequestHeader
+     * @return RlcpRequest instance consists of this body and RlcpRequestHeader
      * built for RlcpMethod of this Body with specified url
      */
     public RlcpRequest prepareRequest(String url) {

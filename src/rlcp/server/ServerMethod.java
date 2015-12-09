@@ -17,6 +17,8 @@ import rlcp.server.flow.RlcpRequestFlow;
 
 /**
  * Enumeration of RLCP-server methods. It is used to execute requests.
+ *
+ * @author Eugene Efimchick
  */
 public enum ServerMethod {
 
@@ -24,7 +26,6 @@ public enum ServerMethod {
      * RLCP-server implementation for Check method.
      */
     CHECK(Check.getInstance()) {
-
         @Override
         public RlcpRequestFlow getFlow() {
             return new RlcpCheckFlow();
@@ -34,7 +35,6 @@ public enum ServerMethod {
      * RLCP-server implementation for Calculate method.
      */
     CALCULATE(Calculate.getInstance()) {
-
         @Override
         public RlcpRequestFlow getFlow() {
             return new RlcpCalculateFlow();
@@ -44,7 +44,6 @@ public enum ServerMethod {
      * RLCP-server implementation for Generate method.
      */
     GENERATE(Generate.getInstance()) {
-
         @Override
         public RlcpRequestFlow getFlow() {
             return new RlcpGenerateFlow();
@@ -55,7 +54,6 @@ public enum ServerMethod {
      * unrecognized requests.
      */
     INVALID(null) {
-
         @Override
         public RlcpRequest parseRequest(String rlcpRequestSource) throws BadRlcpRequestException {
             throw new UnsupportedRlcpMethodException("INVALID.parseRequest will never be supported");
@@ -77,7 +75,7 @@ public enum ServerMethod {
      * ServerMethod compatibility and uses special Controllers for further
      * processing.
      *
-     * @param rlcpRequest rlcpRequest.
+     * @param rlcpRequest               rlcpRequest.
      * @param processorFactoryContainer logiccontainer.
      * @return rlcpResponse instance
      * @throws Exception
@@ -88,6 +86,11 @@ public enum ServerMethod {
         return rlcpResponse;
     }
 
+    /**
+     * Return flow of requests
+     *
+     * @return flow of requests
+     */
     public abstract RlcpRequestFlow getFlow();
 
     /**
@@ -106,7 +109,7 @@ public enum ServerMethod {
      * Returns ServerMethod instance with specified name (ignoring case) or {@code ServerMethod.INVALID}
      * if any error occured or method with such name was not found.
      *
-     * @param name ServerMathod name
+     * @param name ServerMethod name
      * @return ServerMethod instance with specified name (ignoring case) or {@code ServerMethod.INVALID}
      * if any error occured or method with such name was not found
      */

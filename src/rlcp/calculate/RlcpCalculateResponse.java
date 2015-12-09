@@ -7,7 +7,6 @@ import rlcp.util.Util;
 
 /**
  * RlcpResponse implementation for Calculate method.
- * @author Eugene Efimchick
  */
 public class RlcpCalculateResponse extends RlcpResponse {
 
@@ -16,8 +15,9 @@ public class RlcpCalculateResponse extends RlcpResponse {
 
     /**
      * Simple constructor.
+     *
      * @param header response header (should be not null)
-     * @param body response body
+     * @param body   response body
      * @throws IllegalArgumentException if header is null
      */
     public RlcpCalculateResponse(RlcpResponseHeader header, RlcpCalculateResponseBody body) throws IllegalArgumentException {
@@ -26,16 +26,31 @@ public class RlcpCalculateResponse extends RlcpResponse {
         this.body = body;
     }
 
+    /**
+     * return response body for Calculate method.
+     *
+     * @return response body for Calculate method.
+     */
     @Override
     public RlcpCalculateResponseBody getBody() {
         return body;
     }
 
+    /**
+     * return response header for Calculate method.
+     *
+     * @return response header for Calculate method.
+     */
     @Override
     public RlcpResponseHeader getHeader() {
         return header;
     }
 
+    /**
+     * Returns RlcpMethod implementation of this Calculate-response. Should NEVER return null.
+     *
+     * @return RlcpMethod implementation of this Calculate-response. Should NEVER return null.
+     */
     @Override
     public Calculate getMethod() {
         return Calculate.getInstance();

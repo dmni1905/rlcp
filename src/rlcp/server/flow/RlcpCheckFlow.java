@@ -19,13 +19,26 @@ import java.util.List;
 
 /**
  * Class for processing RLCP Check method requests.
- *
- * @author Eugene Efimchick
  */
 public class RlcpCheckFlow extends RlcpRequestFlow {
 
 
-
+    /**
+     * The container must to put an instances {@code PreCheckProcessor}, {@code CheckProcessor}, {@code PostCheckProcessor}.
+     * At the beginning perform the actions announced in {@code PreCheckProcessor}.
+     * Later perform {@code CheckProcessor}, where in front of each check unit perform the actions announced in {@see PreCheckResultAware}.
+     * At the end perform the actions announced in {@code PostCheckProcessor}.
+     * <p>
+     * As a result, request body for checking will be processed and will be returned response body checking.
+     *
+     * @param processorFactoryContainer flow modules container
+     * @param body                      Rlcp request body instance
+     * @return body of RLCP response for Calculate method
+     * @see PreCheckProcessor
+     * @see CheckProcessor
+     * @see PreCheckResultAware
+     * @see PostCheckProcessor
+     */
     @Override
     public RlcpCheckResponseBody processBody(ProcessorFactoryContainer processorFactoryContainer, RlcpRequestBody body) {
         RlcpCheckRequestBody requestBody = (RlcpCheckRequestBody) body;
@@ -127,16 +140,16 @@ public class RlcpCheckFlow extends RlcpRequestFlow {
 
     private static List<CheckingResult> getCheckingResultsIfTheyAreValidOrGetDefault(RlcpCheckRequestBody requestBody, List<CheckingResult> checkResults, ArrayList<CheckingResult> checkingResultsCopy) {
         List<ConditionForChecking> conditions = requestBody.getConditionsList();
-        if(conditions.size() == checkingResultsCopy.size()){
+        if (conditions.size() == checkingResultsCopy.size()) {
             int[] conditionIds = conditions.stream().sequential().mapToInt(c -> c.getId()).toArray();
             int[] resultsIds = checkingResultsCopy.stream().sequential().mapToInt(r -> r.getId()).toArray();
-            if (Arrays.equals(conditionIds, resultsIds)){
+            if (Arrays.equals(conditionIds, resultsIds)) {
                 boolean resultsAreGood = checkingResultsCopy.stream().anyMatch(r ->
-                        !isBetween0and1(new BigDecimal(r.getResult()))
-                        && r.getTime() > 0
-                        && r.getOutput() != null
+                                !isBetween0and1(new BigDecimal(r.getResult()))
+                                        && r.getTime() > 0
+                                        && r.getOutput() != null
                 );
-                if (resultsAreGood){
+                if (resultsAreGood) {
                     checkResults = checkingResultsCopy;
                 }
             }

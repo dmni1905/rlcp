@@ -4,8 +4,6 @@ import rlcp.util.Util;
 
 /**
  * Class for user data. Contains login and password. Unmodifiable.
- * 
- * @author Eugene Efimchick
  */
 public class User {
 

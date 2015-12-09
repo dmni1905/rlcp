@@ -8,8 +8,6 @@ import rlcp.exception.BadRlcpResponseException;
  * Interface for parser of raw representation of RLCP requests, responses and
  * their bodies, specified by RlcpRequest and RlcpResponse interfaces
  * implementations.
- *
- * @author Eugene Efimchick
  */
 public interface RlcpParser<Request extends RlcpRequest, Response extends RlcpResponse> {
 

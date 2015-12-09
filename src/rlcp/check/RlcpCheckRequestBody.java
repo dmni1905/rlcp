@@ -2,6 +2,7 @@ package rlcp.check;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -14,8 +15,6 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpRequestBody implementation for Check method.
- *
- * @author Eugene Efimchick
  */
 public class RlcpCheckRequestBody extends RlcpRequestBody {
 
@@ -27,8 +26,8 @@ public class RlcpCheckRequestBody extends RlcpRequestBody {
      * Simple constructor.
      *
      * @param conditionsList list of conditions for checking
-     * @param instructions instructions from user
-     * @param preGenerated preGenerated data
+     * @param instructions   instructions from user
+     * @param preGenerated   preGenerated data
      */
     public RlcpCheckRequestBody(List<ConditionForChecking> conditionsList, String instructions, GeneratingResult preGenerated) {
         this.conditionsList = Collections.unmodifiableList(conditionsList);
@@ -40,7 +39,7 @@ public class RlcpCheckRequestBody extends RlcpRequestBody {
      * Simple constructor with null as PreGenerated. Usual for static frames.
      *
      * @param conditionsList list of conditions for checking
-     * @param instructions instructions from user
+     * @param instructions   instructions from user
      */
     public RlcpCheckRequestBody(List<ConditionForChecking> conditionsList, String instructions) {
         this(conditionsList, instructions, null);
@@ -73,11 +72,24 @@ public class RlcpCheckRequestBody extends RlcpRequestBody {
         return preGenerated;
     }
 
+    /**
+     * RlcpCheckRequest instance consists of this body and RlcpRequestHeader
+     * built for RlcpMethod of this Body with specified url
+     *
+     * @param url url to RLCP-server
+     * @return RlcpCheckRequest instance consists of this body and RlcpRequestHeader
+     * built for RlcpMethod of this Body with specified url
+     */
     @Override
     public RlcpCheckRequest prepareRequest(String url) {
         return (RlcpCheckRequest) super.prepareRequest(url);
     }
-    
+
+    /**
+     * Returns XML document representation of RlcpCheckRequestBody.
+     *
+     * @return XML document representation of RlcpCheckRequestBody
+     */
     @Override
     public Document getDocument() {
         Document document = DocumentHelper.createDocument();
@@ -119,6 +131,11 @@ public class RlcpCheckRequestBody extends RlcpRequestBody {
         conditionElement.addElement(OUTPUT).addComment(conditionForChecking.getOutput());
     }
 
+    /**
+     * Returns RlcpMethod implementation of this Check-request body. Should NEVER return null.
+     *
+     * @return RlcpMethod implementation of this Check-request body. Should NEVER return null
+     */
     @Override
     public RlcpMethod getMethod() {
         return Check.getInstance();

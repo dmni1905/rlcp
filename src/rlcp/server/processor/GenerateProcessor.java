@@ -3,9 +3,12 @@ package rlcp.server.processor;
 import rlcp.generate.GeneratingResult;
 
 /**
- * Interface for Generate method processing flow module.
+ * Interface for Generate method processing module.
+ * <p>
+ * For use it is necessary to add in {@code ProcessorFactoryContainer}, using Implementing the {@code ProcessorFactory} interface.
  *
- * @author Eugene Efimchick
+ * @see rlcp.server.processor.factory.ProcessorFactoryContainer
+ * @see rlcp.server.processor.factory.ProcessorFactory
  */
 public interface GenerateProcessor extends Processor {
 
@@ -14,6 +17,7 @@ public interface GenerateProcessor extends Processor {
      * available through getters after this method call.
      *
      * @param condition condition for generating
+     * @return data for users
      */
     GeneratingResult generate(String condition);
 

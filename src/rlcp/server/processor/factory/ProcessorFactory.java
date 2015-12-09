@@ -3,8 +3,13 @@ package rlcp.server.processor.factory;
 import rlcp.server.processor.Processor;
 
 /**
- * Created by efimchick on 24.11.15.
+ * Instance for processing flow module
  */
 public interface ProcessorFactory<T extends Processor> {
+    /**
+     * Return process instance
+     *
+     * @return process instance
+     */
     T getInstance();
 }

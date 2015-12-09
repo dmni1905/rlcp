@@ -13,7 +13,6 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpRequestBody implementation for Calculate method.
- * @author Eugene Efimchick
  */
 public class RlcpCalculateRequestBody extends RlcpRequestBody {
 
@@ -57,11 +56,24 @@ public class RlcpCalculateRequestBody extends RlcpRequestBody {
         return preGenerated;
     }
 
+    /**
+     * RlcpCalculateRequest instance consists of this body and RlcpRequestHeader
+     * built for RlcpMethod of this Body with specified url
+     *
+     * @param url url to RLCP-server
+     * @return RlcpCalculateRequest instance consists of this body and RlcpRequestHeader
+     * built for RlcpMethod of this Body with specified url
+     */
     @Override
     public RlcpCalculateRequest prepareRequest(String url) {
         return (RlcpCalculateRequest) super.prepareRequest(url);
     }
-    
+
+    /**
+     * Returns XML document representation of RlcpCalculateRequestBody.
+     *
+     * @return XML document representation of RlcpCalculateRequestBody
+     */
     @Override
     public Document getDocument() {
         Document doc = DocumentHelper.createDocument();
@@ -72,6 +84,11 @@ public class RlcpCalculateRequestBody extends RlcpRequestBody {
         return doc;
     }
 
+    /**
+     * Returns RlcpMethod implementation of this Calculate-request body. Should NEVER return null.
+     *
+     * @return RlcpMethod implementation of this Calculate-request body. Should NEVER return null
+     */
     @Override
     public RlcpMethod getMethod() {
         return Calculate.getInstance();

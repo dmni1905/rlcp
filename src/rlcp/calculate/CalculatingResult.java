@@ -1,7 +1,7 @@
 package rlcp.calculate;
 
 /**
- * Created by efimchick on 24.11.15.
+ * Simple unmodifiable data container. Contains data returned by Calculate method
  */
 public class CalculatingResult {
     private String text;
@@ -12,10 +12,20 @@ public class CalculatingResult {
         this.code = code;
     }
 
+    /**
+     * Returns data through Calculate method to show to user.
+     *
+     * @return data through Calculate to show to user
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Returns data for virtual stand through Calculate.
+     *
+     * @return data for virtual stand through Calculate
+     */
     public String getCode() {
         return code;
     }

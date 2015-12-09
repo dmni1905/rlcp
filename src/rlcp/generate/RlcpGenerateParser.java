@@ -3,14 +3,11 @@ package rlcp.generate;
 import java.io.IOException;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
-import rlcp.RlcpParser;
-import rlcp.RlcpRequestHeader;
-import rlcp.RlcpResponseHeader;
+import rlcp.*;
 import rlcp.exception.BadRlcpBodyException;
 import rlcp.exception.BadRlcpHeaderException;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.BadRlcpResponseException;
-import rlcp.util.Constants;
 import rlcp.util.DomHelper;
 import rlcp.util.Util;
 
@@ -18,11 +15,18 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpParser implementation for Generate method.
- *
- * @author Eugene Efimchick
  */
 public class RlcpGenerateParser implements RlcpParser<RlcpGenerateRequest, RlcpGenerateResponse> {
 
+    /**
+     * Parse the content of the given RLCP-request and return instance {@code RlcpGenerateRequest}.
+     *
+     * @param rlcpRequestString string RLCP-request
+     * @return {@code RlcpGenerateRequest} instance for specified method parsed from param String.
+     * @throws BadRlcpRequestException if RLCP-request the is invalid.
+     *                                 For example, RLCP-request has bad header or RLCP-request has bad body.
+     * @see RlcpGenerateRequest
+     */
     @Override
     public RlcpGenerateRequest parseRequest(String rlcpRequestString) throws BadRlcpRequestException {
         Util.checkStringNotNullNotEmpty(rlcpRequestString);
@@ -54,6 +58,15 @@ public class RlcpGenerateParser implements RlcpParser<RlcpGenerateRequest, RlcpG
 
     }
 
+    /**
+     * Parse the content of the given RLCP-response and return a new object {@code RlcpGenerateResponse}.
+     *
+     * @param rlcpResponseString string RLCP-response
+     * @return {@code RlcpGenerateResponse} implementation instance for specified method parsed from param String, or null.
+     * @throws BadRlcpResponseException if RLCP-response the is invalid.
+     *                                  For example, RLCP-response has bad header or RLCP-response has bad body.
+     * @see RlcpGenerateResponse
+     */
     @Override
     public RlcpGenerateResponse parseResponse(String rlcpResponseString) throws BadRlcpResponseException {
         Util.checkStringNotNullNotEmpty(rlcpResponseString);
@@ -85,6 +98,14 @@ public class RlcpGenerateParser implements RlcpParser<RlcpGenerateRequest, RlcpG
         return new RlcpGenerateResponse(parsedHeader, parsedBody);
     }
 
+    /**
+     * Parse the content of the given RLCP-request body and return instance {@code RlcpGenerateRequestBody}.
+     *
+     * @param rlcpBodyString string RLCP-request body
+     * @return {@code RlcpGenerateRequestBody} instance for specified method parsed from param String.
+     * @throws BadRlcpBodyException if RLCP-request body the is invalid.
+     * @see RlcpGenerateRequestBody
+     */
     @Override
     public RlcpGenerateRequestBody parseRequestBody(String rlcpBodyString) throws BadRlcpBodyException {
         String condition;
@@ -97,6 +118,14 @@ public class RlcpGenerateParser implements RlcpParser<RlcpGenerateRequest, RlcpG
 
     }
 
+    /**
+     * Parse the content of the given RLCP-response and return a new object {@code RlcpGenerateResponseBody}.
+     *
+     * @param rlcpBodyString string RLCP-response
+     * @return {@code RlcpGenerateResponseBody} implementation instance for specified method parsed from param String, or null.
+     * @throws BadRlcpBodyException if RLCP-response body the is invalid..
+     * @see RlcpGenerateResponseBody
+     */
     @Override
     public RlcpGenerateResponseBody parseResponseBody(String rlcpBodyString) throws BadRlcpBodyException {
         Node resultNode;

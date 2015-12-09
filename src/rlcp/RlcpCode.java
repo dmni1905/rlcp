@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 /**
  * Enumeration representing return codes of RLCP-server.
- * 
- * @author Eugene Efimchick
  */
 public enum RlcpCode implements Serializable {
     

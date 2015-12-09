@@ -2,6 +2,7 @@ package rlcp.check;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -14,7 +15,6 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpResponseBody implementation for Check method
- * @author Eugene Efimchick
  */
 public class RlcpCheckResponseBody extends RlcpResponseBody {
 
@@ -22,7 +22,8 @@ public class RlcpCheckResponseBody extends RlcpResponseBody {
 
     /**
      * Simple constructor.
-     * @param checkResults list of checking results 
+     *
+     * @param checkResults list of checking results
      */
     public RlcpCheckResponseBody(List<CheckingResult> checkResults) {
         this.results = Collections.unmodifiableList(checkResults);
@@ -30,6 +31,7 @@ public class RlcpCheckResponseBody extends RlcpResponseBody {
 
     /**
      * Returns list of checking results. Warning: it is unmodifiable.
+     *
      * @return list of checking results
      */
     public List<CheckingResult> getResults() {
@@ -38,6 +40,7 @@ public class RlcpCheckResponseBody extends RlcpResponseBody {
 
     /**
      * Returns checking result with specified id.
+     *
      * @param id result identifier
      * @return checking result with specified id
      */
@@ -51,6 +54,11 @@ public class RlcpCheckResponseBody extends RlcpResponseBody {
         return result;
     }
 
+    /**
+     * Returns XML document representation of RlcpCheckResponseBody.
+     *
+     * @return XML document representation of RlcpCheckResponseBody
+     */
     @Override
     public Document getDocument() {
         Document document = DocumentHelper.createDocument();
@@ -65,10 +73,15 @@ public class RlcpCheckResponseBody extends RlcpResponseBody {
         return document;
     }
 
+    /**
+     * Returns Check instance.
+     *
+     * @return Check instance
+     */
     @Override
     public RlcpMethod getMethod() {
         return Check.getInstance();
     }
-    
-    
+
+
 }

@@ -3,6 +3,7 @@ package rlcp.check;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -20,10 +21,18 @@ import rlcp.util.Util;
 
 /**
  * RlcpParser implementation for Check method.
- * @author Eugene Efimchick
  */
 public class RlcpCheckParser implements RlcpParser<RlcpCheckRequest, RlcpCheckResponse> {
 
+    /**
+     * Parse the content of the given RLCP-request and return instance {@code RlcpCheckRequest}.
+     *
+     * @param rlcpRequestString string RLCP-request
+     * @return {@code RlcpCheckRequest} instance for specified method parsed from param String.
+     * @throws BadRlcpRequestException if RLCP-request the is invalid.
+     *                                 For example, RLCP-request has bad header or RLCP-request has bad body.
+     * @see RlcpCheckRequest
+     */
     @Override
     public RlcpCheckRequest parseRequest(String rlcpRequestString) throws BadRlcpRequestException {
         if (rlcpRequestString == null) {
@@ -60,6 +69,15 @@ public class RlcpCheckParser implements RlcpParser<RlcpCheckRequest, RlcpCheckRe
         return new RlcpCheckRequest(parsedHeader, parsedBody);
     }
 
+    /**
+     * Parse the content of the given RLCP-response and return a new object {@code RlcpCheckResponse}.
+     *
+     * @param rlcpResponseString string RLCP-response
+     * @return {@code RlcpCheckResponse} implementation instance for specified method parsed from param String, or null.
+     * @throws BadRlcpResponseException if RLCP-response the is invalid.
+     *                                  For example, RLCP-response has bad header or RLCP-response has bad body.
+     * @see RlcpCheckResponse
+     */
     @Override
     public RlcpCheckResponse parseResponse(String rlcpResponseString) throws BadRlcpResponseException {
         Util.checkStringNotNullNotEmpty(rlcpResponseString);
@@ -91,6 +109,14 @@ public class RlcpCheckParser implements RlcpParser<RlcpCheckRequest, RlcpCheckRe
         return new RlcpCheckResponse(parsedHeader, parsedBody);
     }
 
+    /**
+     * Parse the content of the given RLCP-request body and return instance {@code RlcpCheckRequestBody}.
+     *
+     * @param rlcpBodyString string RLCP-request body
+     * @return {@code RlcpCheckRequestBody} instance for specified method parsed from param String.
+     * @throws BadRlcpBodyException if RLCP-request body the is invalid.
+     * @see RlcpCheckRequestBody
+     */
     @Override
     public RlcpCheckRequestBody parseRequestBody(String rlcpBodyString) throws BadRlcpBodyException {
         Document rlcpRequestXml;
@@ -145,6 +171,14 @@ public class RlcpCheckParser implements RlcpParser<RlcpCheckRequest, RlcpCheckRe
         return DomHelper.getTextFromNodeByXpath(rlcpRequestXml, Constants.xPath_selectInstructions);
     }
 
+    /**
+     * Parse the content of the given RLCP-response and return a new object {@code RlcpCheckResponseBody}.
+     *
+     * @param rlcpBodyString string RLCP-response
+     * @return {@code RlcpCheckResponseBody} implementation instance for specified method parsed from param String, or null.
+     * @throws BadRlcpBodyException if RLCP-response body the is invalid..
+     * @see RlcpCheckResponseBody
+     */
     @Override
     public RlcpCheckResponseBody parseResponseBody(String rlcpBodyString) throws BadRlcpBodyException {
         Document doc;

@@ -19,10 +19,18 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpParser implementation for Calculate method.
- * @author Eugene Efimchick
  */
 public class RlcpCalculateParser implements RlcpParser<RlcpCalculateRequest, RlcpCalculateResponse> {
 
+    /**
+     * Parse the content of the given RLCP-request and return instance {@code RlcpCalculateRequest}.
+     *
+     * @param rlcpRequestString string RLCP-request
+     * @return {@code RlcpCalculateRequest} instance for specified method parsed from param String.
+     * @throws BadRlcpRequestException if RLCP-request the is invalid.
+     *                                 For example, RLCP-request has bad header or RLCP-request has bad body.
+     * @see RlcpCalculateRequest
+     */
     @Override
     public RlcpCalculateRequest parseRequest(String rlcpRequestString) throws BadRlcpRequestException {
         Util.checkStringNotNullNotEmpty(rlcpRequestString);
@@ -54,6 +62,15 @@ public class RlcpCalculateParser implements RlcpParser<RlcpCalculateRequest, Rlc
 
     }
 
+    /**
+     * Parse the content of the given RLCP-response and return a new object {@code RlcpCalculateResponse}.
+     *
+     * @param rlcpResponseString string RLCP-response
+     * @return {@code RlcpCalculateResponse} implementation instance for specified method parsed from param String, or null.
+     * @throws BadRlcpResponseException if RLCP-response the is invalid.
+     *                                  For example, RLCP-response has bad header or RLCP-response has bad body.
+     * @see RlcpCalculateResponse
+     */
     @Override
     public RlcpCalculateResponse parseResponse(String rlcpResponseString) throws BadRlcpResponseException {
         Util.checkStringNotNullNotEmpty(rlcpResponseString);
@@ -85,6 +102,14 @@ public class RlcpCalculateParser implements RlcpParser<RlcpCalculateRequest, Rlc
         return new RlcpCalculateResponse(parsedHeader, parsedBody);
     }
 
+    /**
+     * Parse the content of the given RLCP-request body and return instance {@code RlcpCalculateRequestBody}.
+     *
+     * @param rlcpBodyString string RLCP-request body
+     * @return {@code RlcpCalculateRequestBody} instance for specified method parsed from param String.
+     * @throws BadRlcpBodyException if RLCP-request body the is invalid.
+     * @see RlcpCalculateRequestBody
+     */
     @Override
     public RlcpCalculateRequestBody parseRequestBody(String rlcpBodyString) throws BadRlcpBodyException {
         String condition;
@@ -102,6 +127,15 @@ public class RlcpCalculateParser implements RlcpParser<RlcpCalculateRequest, Rlc
 
     }
 
+
+    /**
+     * Parse the content of the given RLCP-response and return a new object {@code RlcpCalculateResponseBody}.
+     *
+     * @param rlcpBodyString string RLCP-response
+     * @return {@code RlcpCalculateResponseBody} implementation instance for specified method parsed from param String, or null.
+     * @throws BadRlcpBodyException if RLCP-response body the is invalid.
+     * @see RlcpCalculateResponseBody
+     */
     @Override
     public RlcpCalculateResponseBody parseResponseBody(String rlcpBodyString) throws BadRlcpBodyException {
         Node resultNode;

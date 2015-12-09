@@ -12,8 +12,6 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpResponseBody implementation for Generate method
- *
- * @author Eugene Efimchick
  */
 public class RlcpGenerateResponseBody extends RlcpResponseBody {
 
@@ -27,13 +25,18 @@ public class RlcpGenerateResponseBody extends RlcpResponseBody {
      * Simple constructor.
      *
      * @param text data to show to user
-     * @param code data for applet param
+     * @param code data for virtual stand
      * @param instructions additional data for RLCP-server processing
      */
     public RlcpGenerateResponseBody(String text, String code, String instructions) {
         this(new GeneratingResult(text, code, instructions));
     }
 
+    /**
+     * Returns XML document representation of RlcpGenerateResponseBody.
+     *
+     * @return XML document representation of RlcpGenerateResponseBody
+     */
     @Override
     public Document getDocument() {
         Document document = DocumentHelper.createDocument();
@@ -45,6 +48,10 @@ public class RlcpGenerateResponseBody extends RlcpResponseBody {
         return document;
     }
 
+    /**
+     * Returns Generate instance.
+     * @return Generate instance
+     */
     @Override
     public RlcpMethod getMethod() {
         return Generate.getInstance();

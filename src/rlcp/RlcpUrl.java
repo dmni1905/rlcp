@@ -2,15 +2,14 @@ package rlcp;
 
 import java.io.Serializable;
 import java.util.StringTokenizer;
+
 import rlcp.exception.BadRlcpUrlException;
 import rlcp.util.Util;
 
 /**
  * Class for RLCP URL entity. Provides getters and parser methods.
- *
- * @author Eugene Efimchick
  */
-public class RlcpUrl implements Serializable{
+public class RlcpUrl implements Serializable {
 
     private static String rlcpUrlDelimiters = ":@";
 
@@ -21,14 +20,15 @@ public class RlcpUrl implements Serializable{
     private static boolean hostPortExpected(StringTokenizer tokenizer) {
         return tokenizer.countTokens() == 2;
     }
+
     private String host, port, login, password;
 
     /**
      * Simple constructor. Beware of IllegalArgumentException.
      *
-     * @param host host (not null)
-     * @param port port (not null)
-     * @param login RLCP-server login
+     * @param host     host (not null)
+     * @param port     port (not null)
+     * @param login    RLCP-server login
      * @param password RLCP-server password
      * @throws IllegalArgumentException if host or port is null
      */
@@ -53,10 +53,11 @@ public class RlcpUrl implements Serializable{
     }
 
     /**
-     * Returns parsed from raw String RlcpUrl instance 
+     * Returns parsed from raw String RlcpUrl instance
+     *
      * @param rlcpUrlString raw String RlcpUrl representation
-     * @return RlcpUrl instance 
-     * @throws BadRlcpUrlException 
+     * @return RlcpUrl instance
+     * @throws BadRlcpUrlException
      */
     public static RlcpUrl parse(String rlcpUrlString) throws BadRlcpUrlException {
         Util.checkStringNotNullNotEmpty(rlcpUrlString);
@@ -91,7 +92,8 @@ public class RlcpUrl implements Serializable{
 
     /**
      * Returns String representation of RlcpUrl instance.
-     * @return String representation of RlcpUrl instance 
+     *
+     * @return String representation of RlcpUrl instance
      */
     @Override
     public String toString() {
@@ -105,6 +107,7 @@ public class RlcpUrl implements Serializable{
 
     /**
      * Returns host.
+     *
      * @return host
      */
     public String getHost() {
@@ -113,6 +116,7 @@ public class RlcpUrl implements Serializable{
 
     /**
      * Returns login.
+     *
      * @return login
      */
     public String getLogin() {
@@ -121,6 +125,7 @@ public class RlcpUrl implements Serializable{
 
     /**
      * Returns password.
+     *
      * @return password
      */
     public String getPassword() {
@@ -129,6 +134,7 @@ public class RlcpUrl implements Serializable{
 
     /**
      * Returns port.
+     *
      * @return port
      */
     public String getPort() {

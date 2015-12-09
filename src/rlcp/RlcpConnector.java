@@ -22,8 +22,6 @@ import rlcp.util.Util;
  * Provides public {@code execute()} method, that establishes network
  * connection, sends request, receives Respose as raw String and parses it as
  * specified method response.
- *
- * @author Eugene Efimchick
  */
 public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpResponse> {
 
@@ -77,7 +75,7 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
      * @throws IOException
      * @throws BadRlcpResponseException
      */
-    public Response execute(Request request, int timeout) throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException {
+    public Response execute(Request request, int timeout) throws IOException, BadRlcpResponseException, BadRlcpRequestException {
         Socket socket = null;
         String rawResponse;
         try {

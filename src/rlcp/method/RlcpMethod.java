@@ -7,8 +7,6 @@ import rlcp.exception.BadRlcpUrlException;
  * Interface for RLCP-methods. Provides public static implementstion for each
  * method and Recognizer static class for method name recognition by raw Request
  * or Response String. Also provides some all-around useful methods.
- *
- * @author Eugene Efimchick
  */
 public abstract class RlcpMethod {
 
@@ -45,7 +43,7 @@ public abstract class RlcpMethod {
      */
     public abstract Class getRequestBodyClass();
 
-    
+
     /**
      * Returns response body class implementing RlcpResponseBody. Should NEVER return
      * null.
@@ -67,7 +65,7 @@ public abstract class RlcpMethod {
     /**
      * Returns RlcpRequest instance for this method with specified body and url.
      *
-     * @param url url to RLCP-server
+     * @param url  url to RLCP-server
      * @param body RlcpRequestBody implemenation for this method
      * @return RlcpRequest instanse for this method with specified body and url
      */
@@ -101,17 +99,18 @@ public abstract class RlcpMethod {
 
     /**
      * Returns new RlcpRequest instance that consists of specified header and body.
-     * 
+     *
      * @param header request header
-     * @param body request body
+     * @param body   request body
      * @return new RlcpRequest instance
      */
     public abstract RlcpRequest newRequest(RlcpRequestHeader header, RlcpRequestBody body);
 
     /**
      * Returns new RlcpResponse instance that consists of specified header and body.
+     *
      * @param header response header
-     * @param body response body
+     * @param body   response body
      * @return new RlcpResponse instance
      */
     public abstract RlcpResponse newResponse(RlcpResponseHeader header, RlcpResponseBody body);
@@ -120,7 +119,7 @@ public abstract class RlcpMethod {
      * Returns RlcpRequestHeader for this method with specified url and
      * contentLength.
      *
-     * @param url url to RLCP-server
+     * @param url           url to RLCP-server
      * @param contentLength body content length
      * @return RlcpRequestHeader with specified url and contentLength
      */
@@ -143,7 +142,7 @@ public abstract class RlcpMethod {
      * @return {@code true} if raw String param looks like raw request or
      * response of this method, {@code false} otherwise
      */
-    public boolean looksLike(String raw){
+    public boolean looksLike(String raw) {
         return this.equals(Recognizer.recognizeMethod(raw));
     }
 

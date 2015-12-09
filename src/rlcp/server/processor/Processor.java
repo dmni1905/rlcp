@@ -1,7 +1,7 @@
 package rlcp.server.processor;
 
 /**
- * Created by efimchick on 24.11.15.
+ * General interface for RLCP methods processing flow modules
  */
 public interface Processor {
 }

@@ -12,8 +12,6 @@ import rlcp.server.logger.Logger;
 
 /**
  * Configuration parser class.
- *
- * @author Eugene Efimchick
  */
 public class ConfigParser {
 
@@ -100,10 +98,9 @@ public class ConfigParser {
     }
 
     /**
-     * Возвращает конфигурацию по умолчанию. Порт: 3000. Пользовательский
-     * логин/пароль:user/user.
+     * Returns default config (default port: 300; default user's list: user with login-user, password-user)
      *
-     * @return конфигурация по умолчанию.
+     * @return default config
      */
     public static Config getDefault() {
         return defaultConfig;

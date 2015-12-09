@@ -7,8 +7,6 @@ import rlcp.util.DomHelper;
 
 /**
  * Interface for RlcpResponse body entity.
- *
- * @author Eugene Efimchick
  */
 public abstract class RlcpResponseBody implements Serializable{
 

@@ -10,8 +10,6 @@ import rlcp.util.Util;
 
 /**
  * RLCP-server class.
- *
- * @author Eugene Efimchick
  */
 public class Server {
 

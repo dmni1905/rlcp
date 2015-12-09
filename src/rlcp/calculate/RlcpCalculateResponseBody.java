@@ -12,10 +12,9 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpResponseBody implementation for Calculate method
- * @author Eugene Efimchick
  */
 public class RlcpCalculateResponseBody extends RlcpResponseBody {
-    
+
     private CalculatingResult calculatingResult;
 
     public RlcpCalculateResponseBody(CalculatingResult calculatingResult) {
@@ -24,13 +23,19 @@ public class RlcpCalculateResponseBody extends RlcpResponseBody {
 
     /**
      * Simple constructor.
-     * @param text text to show to user
-     * @param code text for applet param
+     *
+     * @param text data to show to user
+     * @param code data for virtual stand
      */
     public RlcpCalculateResponseBody(String text, String code) {
         this(new CalculatingResult(text, code));
     }
 
+    /**
+     * Returns XML document representation of RlcpCalculateResponseBody.
+     *
+     * @return XML document representation of RlcpCalculateResponseBody
+     */
     @Override
     public Document getDocument() {
         Document document = DocumentHelper.createDocument();
@@ -41,6 +46,11 @@ public class RlcpCalculateResponseBody extends RlcpResponseBody {
         return document;
     }
 
+    /**
+     * Returns Calculate instance.
+     *
+     * @return Calculate instance
+     */
     @Override
     public RlcpMethod getMethod() {
         return Calculate.getInstance();

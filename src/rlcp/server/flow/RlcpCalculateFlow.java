@@ -11,11 +11,18 @@ import rlcp.server.processor.factory.ProcessorFactoryContainer;
 
 /**
  * Class for processing RLCP Calculate method requests.
- *
- * @author Eugene Efimchick
  */
 public class RlcpCalculateFlow extends RlcpRequestFlow {
 
+    /**
+     * The container need to put an instance {@code CalculateProcessor}.
+     * As a result, request body for calculating will be processed and will be returned response body calculating.
+     *
+     * @param processorFactoryContainer flow modules container
+     * @param body                      Rlcp request body instance
+     * @return body of RLCP response for Calculate method
+     * @see CalculateProcessor
+     */
     @Override
     public RlcpResponseBody processBody(ProcessorFactoryContainer processorFactoryContainer, RlcpRequestBody body) {
         RlcpCalculateRequestBody calculateRequestBody = (RlcpCalculateRequestBody) body;

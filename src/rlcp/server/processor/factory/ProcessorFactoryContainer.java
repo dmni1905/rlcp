@@ -11,8 +11,6 @@ import rlcp.server.processor.*;
 
 /**
  * Class for flow modules container.
- *
- * @author Eugene Efimchick
  */
 public class ProcessorFactoryContainer {
 
@@ -24,18 +22,38 @@ public class ProcessorFactoryContainer {
     public ProcessorFactoryContainer() {
     }
 
+    /**
+     * Return form container PreCheckProcessor instance, if it was previously set.
+     *
+     * @return PreCheckProcessor instance, if it was previously set.
+     */
     public PreCheckProcessor getPreCheckAlgorithm() {
         return getProcessor(PreCheckProcessor.class);
     }
 
+    /**
+     * Simple setter.
+     *
+     * @param factory PreCheckProcessor instance.
+     */
     public void setPreCheckProcessorFactory(ProcessorFactory<PreCheckProcessor> factory) {
         putProcessorFactory(PreCheckProcessor.class, factory);
     }
 
+    /**
+     * Return form container PostCheckProcessor instance , if it was previously set.
+     *
+     * @return PostCheckProcessor instance , if it was previously set.
+     */
     public PostCheckProcessor getPostCheckProcessor() {
         return getProcessor(PostCheckProcessor.class);
     }
 
+    /**
+     * Simple setter.
+     *
+     * @param factory PostCheckProcessor instance.
+     */
     public void setPostCheckProcessorFactory(ProcessorFactory<PostCheckProcessor> factory) {
         putProcessorFactory(PostCheckProcessor.class, factory);
     }
@@ -46,7 +64,7 @@ public class ProcessorFactoryContainer {
      *
      * @return CheckFactory instance, if it was previously set.
      * @throws NotImplementedMethodException if there was no CheckProcessor instance
-     * set.
+     *                                       set.
      */
     public CheckProcessor getCheckProcessor() {
         return getProcessor(CheckProcessor.class);
@@ -75,10 +93,10 @@ public class ProcessorFactoryContainer {
      *
      * @return GenerateProcessor instance, if it was previously set.
      * @throws NotImplementedMethodException if there was no GenerateProcessor
-     * instance set.
+     *                                       instance set.
      */
     public GenerateProcessor getGenerateProcessor() {
-        return  getProcessor(GenerateProcessor.class);
+        return getProcessor(GenerateProcessor.class);
     }
 
     /**
@@ -95,7 +113,7 @@ public class ProcessorFactoryContainer {
      *
      * @return CalculateProcessor instance, if it was previously set.
      * @throws NotImplementedMethodException if there was no CalculateProcessor
-     * instance set.
+     *                                       instance set.
      */
     public CalculateProcessor getCalculateProcessor() {
         return getProcessor(CalculateProcessor.class);
@@ -107,13 +125,20 @@ public class ProcessorFactoryContainer {
      * @param key key for RequestProcessProcessor instance
      * @return RequestProcessProcessor instance, if it was previously set.
      * @throws NotImplementedMethodException if there was no RequestProcessProcessor
-     * instance set for that key.
+     *                                       instance set for that key.
      */
     public <T extends Processor> ProcessorFactory<T> getProcessorFactory(Class<T> key) {
         ProcessorFactory<T> factory = (ProcessorFactory<T>) storage.get(key);
         return factory;
     }
 
+    /**
+     * Return one instance of extends {@code Processor} or null
+     *
+     * @param key name class
+     * @return {@code Processor} implementation instance for processing flow module or null
+     * @see Processor
+     */
     public <T extends Processor> T getProcessor(Class<T> key) {
         ProcessorFactory<T> factory = (ProcessorFactory<T>) storage.get(key);
         return factory == null ? null : factory.getInstance();
@@ -121,20 +146,20 @@ public class ProcessorFactoryContainer {
 
     /**
      * Sets RequestProcessProcessor instance for specified key.
-     * 
-     * @param clazz
-     * @param factory
+     *
+     * @param clazz   specified key (name interface for RLCP methods processing flow modules).
+     * @param factory RequestProcessProcessor instance
      */
     private <T extends Processor> void putProcessorFactory(Class<T> clazz, ProcessorFactory<T> factory) {
         storage.put(clazz, factory);
     }
 
 
-
     public static void main(String[] args) {
         new ProcessorFactoryContainer().putProcessorFactory(CalculateProcessor.class, new DefaultConstructorProcessorFactory<CalculateProcessor>(CaclculateImpl.class));
     }
-    private static class CaclculateImpl implements  CalculateProcessor{
+
+    private static class CaclculateImpl implements CalculateProcessor {
         @Override
         public CalculatingResult calculate(String condition, String instructions, GeneratingResult generatingResult) {
             return null;

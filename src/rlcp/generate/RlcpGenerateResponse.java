@@ -7,8 +7,6 @@ import rlcp.util.Util;
 
 /**
  * RlcpResponse implementation for Generate method.
- *
- * @author Eugene Efimchick
  */
 public class RlcpGenerateResponse extends RlcpResponse {
 
@@ -27,16 +25,31 @@ public class RlcpGenerateResponse extends RlcpResponse {
         this.body = body;
     }
 
+    /**
+     * return response body for Generate method.
+     *
+     * @return response body for Generate method.
+     */
     @Override
     public RlcpGenerateResponseBody getBody() {
         return body;
     }
 
+    /**
+     * return response header for Generate method.
+     *
+     * @return response header for Generate method.
+     */
     @Override
     public RlcpResponseHeader getHeader() {
         return header;
     }
 
+    /**
+     * Returns RlcpMethod implementation of this Generate-response. Should NEVER return null.
+     *
+     * @return RlcpMethod implementation of this Generate-response. Should NEVER return null.
+     */
     @Override
     public Generate getMethod() {
         return Generate.getInstance();

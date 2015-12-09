@@ -6,10 +6,6 @@ import org.junit.*;
 import rlcp.exception.BadRlcpUrlException;
 
 
-/**
- *
- * @author Jerome
- */
 public class RlcpUrlTest {
     
     public RlcpUrlTest() {

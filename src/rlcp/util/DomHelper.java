@@ -3,6 +3,7 @@ package rlcp.util;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -14,6 +15,7 @@ import rlcp.generate.GeneratingResult;
 
 /**
  * Provides some useful methods for dom4j
+ *
  * @author Eugene Efimchick
  */
 public class DomHelper {
@@ -24,9 +26,9 @@ public class DomHelper {
     /**
      * Safe method for get text from node by xpath expression.
      *
-     * @param node root element
+     * @param node  root element
      * @param xpath - xpath expression. Should return single element only.
-     * @return text or null if exception occured
+     * @return The resulting {@code String} or null if exception occured
      */
     public static String getTextFromNodeByXpath(Node node, String xpath) {
         try {
@@ -37,12 +39,11 @@ public class DomHelper {
     }
 
     /**
-     * Метод безопасного получения целого числа из элемента, выбранного с
-     * помощью xpath-выражения из другого элемента
+     * Safe method for get integer from node by xpath expression.
      *
-     * @param node элемент, из которого происходит выборка
-     * @param xpath - выражение xpath для выборки (только single-элемента)
-     * @return полученное число или 0, если выбранное - не число
+     * @param node  root element
+     * @param xpath - xpath expression. Should return single element only.
+     * @return The resulting int or 0,  if exception not a number
      */
     public static int getIntFromNodeByXpath(Node node, String xpath) {
         try {
@@ -53,17 +54,23 @@ public class DomHelper {
     }
 
     /**
-     * Метод преобразования строки, содержащей xml-документ в собственно
-     * xml-документ
+     * Safe method for get XML document from string.
      *
-     * @param source исходная строка
-     * @return полученный xml-документ
-     * @throws DocumentException - если строка содержит не валидный xml-документ
+     * @param source raw string
+     * @return XML document
+     * @throws DocumentException if string contains a invalid XML document
      */
     public static Document toXml(String source) throws DocumentException {
         return new SAXReader().read(new StringReader(source));
     }
 
+    /**
+     * This method will print the Document to pretty String (preserving all the padding and line breaks).
+     *
+     * @param doc XML document
+     * @return The resulting {@code String}
+     * @throws IOException if there's any problem writing Document to the current Writer or closing him
+     */
     public static String getPrettyOrCompactIfExc(Document doc) {
         try {
             StringWriter stringWriter = new StringWriter();
@@ -76,12 +83,21 @@ public class DomHelper {
         }
     }
 
+    /**
+     * This method will get simple unmodifiable data container {@code GeneratingResult} from XML document
+     * containing RLCP-request body or RLCP-response body.
+     *
+     * @param rlcpRequestXml XML document
+     * @return simple unmodifiable data container {@code GeneratingResult}
+     * @throws NullPointerException if document the is invalid, he doesn't contain text, code or instructions
+     * @see GeneratingResult
+     */
     public static GeneratingResult parsePreGenearted(Document rlcpRequestXml) {
         try {
             String text = parsePreGeneratedText(rlcpRequestXml);
             String code = parsePreGeneratedCode(rlcpRequestXml);
             String instructions = parsePreGeneratedInstructions(rlcpRequestXml);
-            if(text == null && code == null && instructions == null){
+            if (text == null && code == null && instructions == null) {
                 return null;
             }
             return new GeneratingResult(text, code, instructions);
@@ -103,6 +119,13 @@ public class DomHelper {
         return DomHelper.getTextFromNodeByXpath(rlcpRequestXml, Constants.xPath_selectPreGeneratedText);
     }
 
+    /**
+     * Adds in Element node raw data container
+     *
+     * @param requestElement   XML element
+     * @param generatingResult simple unmodifiable data container {@code GeneratingResult}
+     * @see GeneratingResult
+     */
     public static void addPreGeneratedElement(Element requestElement, GeneratingResult generatingResult) {
         Element preGeneratedElement = requestElement.addElement(Constants.PRE_GENERATED);
         preGeneratedElement.addElement(Constants.PRE_GENERATED_TEXT).addComment(generatingResult.getText());

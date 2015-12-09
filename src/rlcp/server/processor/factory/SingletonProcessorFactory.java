@@ -5,7 +5,9 @@ import rlcp.server.processor.Processor;
 import java.util.Objects;
 
 /**
- * Created by efimchick on 24.11.15.
+ * Singleton constructor ProcessorFactory. It is used for putting of flow modules container.
+ *
+ * @param <T> interface for RLCP methods processing flow modules
  */
 public class SingletonProcessorFactory<T extends Processor> implements ProcessorFactory<T> {
 
@@ -16,6 +18,11 @@ public class SingletonProcessorFactory<T extends Processor> implements Processor
         this.instance = instance;
     }
 
+    /**
+     * Every time will return singleton instance of the RLCP methods processing flow modules
+     *
+     * @return singleton instance of the RLCP methods processing flow modules
+     */
     @Override
     public T getInstance() {
         return  instance;

@@ -2,6 +2,7 @@ package rlcp.server.config;
 
 import java.util.Collections;
 import java.util.List;
+
 import rlcp.server.logger.Logger;
 import rlcp.util.Util;
 
@@ -18,7 +19,8 @@ public class Config {
 
     /**
      * Simple constructor.
-     * @param port server port
+     *
+     * @param port  server port
      * @param users list of server users. Must not be null.
      */
     public Config(int port, List<User> users) {
@@ -29,6 +31,7 @@ public class Config {
 
     /**
      * Returns list of users. Note: it is unmodifiable.
+     *
      * @return list of users
      */
     public List<User> getUsers() {
@@ -37,32 +40,47 @@ public class Config {
 
     /**
      * Returns server port.
+     *
      * @return server port
      */
     public int getPort() {
         return port;
     }
-    
+
     /**
      * Returns {@code true} if login/password is not necessery (it is empty user list is set), {@code false} otherwise.
+     *
      * @return {@code true} if login/password is not necessery (it is empty user list is set), {@code false} otherwise
      */
-    public boolean isPublicAuthAllowed(){
+    public boolean isPublicAuthAllowed() {
         return users.isEmpty();
     }
 
+    /**
+     * Prints server's configuration in logger
+     */
     public void printOut() {
         Logger.log("Configuration is:");
         Logger.log("Port: " + port);
         Logger.log("Users: " + users);
     }
 
-    public long getRequestFlowTimeLimit(){
+    /**
+     * Returns time limits for request flow
+     *
+     * @return time limits for request flow
+     */
+    public long getRequestFlowTimeLimit() {
         return rlcpDefaultRequestFlowTimeLimitInSec;
     }
 
-    public long getCheckUnitTimeLimit(){
+    /**
+     * Returns time limits for check unit
+     *
+     * @return time limits for check unit
+     */
+    public long getCheckUnitTimeLimit() {
         return rlcpDefaultCheckUnitTimeLimitInSec;
     }
-    
+
 }

@@ -12,7 +12,6 @@ import static rlcp.util.Constants.*;
 
 /**
  * RlcpRequestBody implementation for Generate method.
- * @author Eugene Efimchick
  */
 public class RlcpGenerateRequestBody extends RlcpRequestBody {
 
@@ -20,6 +19,7 @@ public class RlcpGenerateRequestBody extends RlcpRequestBody {
 
     /**
      * Simple constructor.
+     *
      * @param condition condition for generating
      */
     public RlcpGenerateRequestBody(String condition) {
@@ -28,17 +28,31 @@ public class RlcpGenerateRequestBody extends RlcpRequestBody {
 
     /**
      * Returns condition for generating.
+     *
      * @return condition for generating
      */
     public String getCondition() {
         return condition;
     }
 
+    /**
+     * RlcpGenerateRequest instance consists of this body and RlcpRequestHeader
+     * built for RlcpMethod of this Body with specified url
+     *
+     * @param url url to RLCP-server
+     * @return RlcpGenerateRequest instance consists of this body and RlcpRequestHeader
+     * built for RlcpMethod of this Body with specified url
+     */
     @Override
     public RlcpGenerateRequest prepareRequest(String url) {
         return (RlcpGenerateRequest) super.prepareRequest(url);
     }
-    
+
+    /**
+     * Returns XML document representation of RlcpGenerateRequestBody.
+     *
+     * @return XML document representation of RlcpGenerateRequestBody
+     */
     @Override
     public Document getDocument() {
         Document doc = DocumentHelper.createDocument();
@@ -46,6 +60,11 @@ public class RlcpGenerateRequestBody extends RlcpRequestBody {
         return doc;
     }
 
+    /**
+     * Returns RlcpMethod implementation of this Generate-request body. Should NEVER return null.
+     *
+     * @return RlcpMethod implementation of this Generate-request body. Should NEVER return null
+     */
     @Override
     public RlcpMethod getMethod() {
         return Generate.getInstance();
