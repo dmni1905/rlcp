@@ -47,10 +47,10 @@ public class RlcpCheckRequest extends RlcpRequest {
      * Returns request body for checking.
      *
      * @return request body for checking.
-     * @see RlcpRequestBody
+     * @see RlcpCheckRequestBody
      */
     @Override
-    public RlcpRequestBody getBody() {
+    public RlcpCheckRequestBody getBody() {
         return body;
     }
 

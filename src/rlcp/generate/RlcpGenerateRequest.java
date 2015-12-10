@@ -46,10 +46,10 @@ public class RlcpGenerateRequest extends RlcpRequest {
      * Returns request body for generating.
      *
      * @return request body for generating.
-     * @see RlcpRequestBody
+     * @see RlcpGenerateRequestBody
      */
     @Override
-    public RlcpRequestBody getBody() {
+    public RlcpGenerateRequestBody getBody() {
         return body;
     }
 

@@ -32,14 +32,14 @@ public class Rlcp {
      * Parse the content of the given RLCP-request and return one instance of extends {@code RlcpRequest}:
      * {@code RlcpGenerateRequest}, {@code RlcpCalculateRequest} or {@code RlcpCheckRequest}.
      * <p>
-     * <p>If the request can not be converted to the required type, then return null.</p>
+     * <p>If the request can not be converted to the required type, then return exception.</p>
      *
      * @param rlcpRequestString raw RlcpRequest representation
      * @param clazz             type RLCP-request class must match. This type of the class extends {@code RlcpRequest}.
      *                          For example, if the value is {@code RlcpGenerateRequest.class}, this method will return
      *                          instance {@code RlcpGenerateRequest}
      * @return {@code RlcpRequest} implementation instance for specified method parsed from param String,
-     * or null if request doesn't match the class {@code RlcpRequest}.
+     * or exception if request doesn't match the class {@code RlcpRequest}.
      * @throws BadRlcpRequestException if RLCP-request the is invalid.
      *                                 For example, RLCP-request has bad header or RLCP-request has bad body.
      * @see RlcpRequest
@@ -64,19 +64,23 @@ public class Rlcp {
             throw new BadRlcpRequestException(ex);
         }
         String currentMethod = RlcpMethod.Recognizer.recognizeMethod(bodyBuilder.toString()).getName().toLowerCase();
-        try {
-            switch (currentMethod) {
-                case "generate":
-                    return clazz.cast(new RlcpGenerateRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpGenerateRequestBody.class)));
-                case "check":
-                    return clazz.cast(new RlcpCheckRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpCheckRequestBody.class)));
-                case "calculate":
-                    return clazz.cast(new RlcpCalculateRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpCalculateRequestBody.class)));
-                default:
-                    return null;
+        if (clazz.getName().toLowerCase().contains(currentMethod)) {
+            try {
+                switch (currentMethod) {
+                    case "generate":
+                        return clazz.cast(new RlcpGenerateRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpGenerateRequestBody.class)));
+                    case "check":
+                        return clazz.cast(new RlcpCheckRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpCheckRequestBody.class)));
+                    case "calculate":
+                        return clazz.cast(new RlcpCalculateRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpCalculateRequestBody.class)));
+                    default:
+                        throw new RlcpException("bad request");
+                }
+            } catch (BadRlcpBodyException ex) {
+                throw new BadRlcpRequestException(ex);
             }
-        } catch (BadRlcpBodyException ex) {
-            throw new BadRlcpRequestException(ex);
+        } else {
+            throw new BadRlcpRequestException(rlcpRequestString + " can not be cast to " + clazz.getCanonicalName());
         }
     }
 
@@ -84,14 +88,14 @@ public class Rlcp {
      * Parse the content of the given RLCP-request body and return one instance of extends {@code RlcpRequestBody}:
      * {@code RlcpCalculateRequestBody}, {@code RlcpCheckRequestBody} or {@code RlcpGenerateRequestBody}.
      * <p>
-     * <p>If the request body can not be converted to the required type, then return null.</p>
+     * <p>If the request body can not be converted to the required type, then return exception.</p>
      *
      * @param rlcpBodyString raw RlcpRequestBody representation
      * @param clazz          type RLCP-request class must match. This type of the class extends {@code RlcpRequestBody}.
      *                       For example, if the value is {@code RlcpGenerateRequestBody.class}, this method will return
      *                       instance {@code RlcpGenerateRequestBody}
      * @return {@code RlcpRequestBody}implementation instance for specified method parsed from param String,
-     * or null if request body doesn't match the class {@code RlcpRequestBody}.
+     * or exception if request body doesn't match the class {@code RlcpRequestBody}.
      * @throws BadRlcpBodyException if RLCP-request body the is invalid.
      * @see RlcpRequestBody
      * @see RlcpCalculateRequestBody
@@ -110,7 +114,7 @@ public class Rlcp {
                 case "calculate":
                     return clazz.cast(parseCalculateRequestBody(rlcpBodyString));
                 default:
-                    return null;
+                    throw new RlcpException("bad request body");
             }
         } else {
             throw new BadRlcpBodyException(rlcpBodyString + " can not be cast to " + clazz.getCanonicalName());
@@ -121,14 +125,14 @@ public class Rlcp {
      * Parse the content of the given RLCP-response and return one instance of extends {@code RlcpResponse}:
      * {@code RlcpCalculateResponse}, {@code RlcpCheckResponse} or {@code RlcpGenerateResponse}.
      * <p>
-     * <p>If the response can not be converted to the required type, then return null.</p>
+     * <p>If the response can not be converted to the required type, then return exception.</p>
      *
      * @param rlcpResponseString raw RlcpResponse representation
      * @param clazz              type RLCP-response class must match. This type of the class extends {@code RlcpResponse}.
      *                           For example, if the value is {@code RlcpGenerateResponse.class}, this method will return
      *                           instance {@code RlcpGenerateResponse}
      * @return {@code RlcpResponse} implementation instance for specified method parsed from param String,
-     * or null if response doesn't match the class {@code RlcpResponse}.
+     * or exception if response doesn't match the class {@code RlcpResponse}.
      * @throws BadRlcpResponseException if RLCP-response the is invalid.
      *                                  For example, RLCP-response has bad header or RLCP-response has bad body.
      * @see RlcpResponse
@@ -154,19 +158,23 @@ public class Rlcp {
             throw new BadRlcpResponseException(ex);
         }
         String currentMethod = RlcpMethod.Recognizer.recognizeMethod(bodyBuilder.toString()).getName().toLowerCase();
-        try {
-            switch (currentMethod) {
-                case "generate":
-                    return clazz.cast(new RlcpGenerateResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpGenerateResponseBody.class)));
-                case "check":
-                    return clazz.cast(new RlcpCheckResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpCheckResponseBody.class)));
-                case "calculate":
-                    return clazz.cast(new RlcpCalculateResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpCalculateResponseBody.class)));
-                default:
-                    return null;
+        if (clazz.getName().toLowerCase().contains(currentMethod)) {
+            try {
+                switch (currentMethod) {
+                    case "generate":
+                        return clazz.cast(new RlcpGenerateResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpGenerateResponseBody.class)));
+                    case "check":
+                        return clazz.cast(new RlcpCheckResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpCheckResponseBody.class)));
+                    case "calculate":
+                        return clazz.cast(new RlcpCalculateResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpCalculateResponseBody.class)));
+                    default:
+                        throw new RlcpException("bad response");
+                }
+            } catch (BadRlcpBodyException ex) {
+                throw new BadRlcpResponseException(ex);
             }
-        } catch (BadRlcpBodyException ex) {
-            throw new BadRlcpResponseException(ex);
+        } else {
+            throw new BadRlcpResponseException(rlcpResponseString + " can not be cast to " + clazz.getCanonicalName());
         }
     }
 
@@ -174,14 +182,14 @@ public class Rlcp {
      * Parse the content of the given RLCP-response body and return one instance of extends {@code RlcpResponseBody}:
      * {@code RlcpCalculateResponseBody}, {@code RlcpCheckResponseBody} or {@code RlcpGenerateResponseBody}.
      * <p>
-     * <p>If the response body can not be converted to the required type, then return null.</p>
+     * <p>If the response body can not be converted to the required type, then return exception.</p>
      *
      * @param rlcpBodyString raw RlcpResponseBody representation
      * @param clazz          type RLCP-response class must match. This type of the class extends {@code RlcpResponseBody}.
      *                       For example, if the value is {@code RlcpGenerateResponseBody.class}, this method will return
      *                       instance {@code RlcpGenerateResponseBody}
      * @return {@code RlcpRequestBody} implementation instance for specified method parsed from param String,
-     * or null if response body doesn't match the class {@code RlcpResponseBody}.
+     * or exception if response body doesn't match the class {@code RlcpResponseBody}.
      * @throws BadRlcpBodyException if RLCP-response body the is invalid.
      * @see RlcpResponseBody
      * @see RlcpCalculateResponseBody
@@ -199,7 +207,7 @@ public class Rlcp {
                 case "calculate":
                     return clazz.cast(parseCalculateResponseBody(rlcpBodyString));
                 default:
-                    return null;
+                    throw new RlcpException("bad response body");
             }
         } else {
             throw new BadRlcpBodyException(rlcpBodyString + " can not be cast to " + clazz.getCanonicalName());
@@ -210,7 +218,7 @@ public class Rlcp {
      * Parse the content of the given RLCP-request and return a new object {@code RlcpRequest}.
      *
      * @param rlcpRequestString string RLCP-request
-     * @return {@code RlcpRequest} implementation instance for specified method parsed from param String, or null.
+     * @return {@code RlcpRequest} implementation instance for specified method parsed from param String, or exception.
      * @throws BadRlcpRequestException if RLCP-request the is invalid.
      *                                 For example, RLCP-request has bad header or RLCP-request has bad body.
      * @see RlcpRequest
@@ -224,7 +232,7 @@ public class Rlcp {
             case "calculate":
                 return parseRequest(rlcpRequestString, RlcpCalculateRequest.class);
             default:
-                return null;
+                throw new RlcpException("bad request");
         }
     }
 
@@ -232,7 +240,7 @@ public class Rlcp {
      * Parse the content of the given RLCP-request body and return a new object {@code RlcpRequestBody}.
      *
      * @param rlcpBodyString string RLCP-request body
-     * @return {@code RlcpRequestBody} implementation instance for specified method parsed from param String, or null.
+     * @return {@code RlcpRequestBody} implementation instance for specified method parsed from param String, or exception.
      * @throws BadRlcpBodyException if RLCP-request body the is invalid.
      * @see RlcpRequestBody
      */
@@ -245,7 +253,7 @@ public class Rlcp {
             case "calculate":
                 return parseRequestBody(rlcpBodyString, RlcpCalculateRequestBody.class);
             default:
-                return null;
+                throw new RlcpException("bad request body");
         }
     }
 
@@ -253,7 +261,7 @@ public class Rlcp {
      * Parse the content of the given RLCP-response and return a new object {@code RlcpResponse}.
      *
      * @param rlcpResponseString string RLCP-response
-     * @return {@code RlcpResponse} implementation instance for specified method parsed from param String, or null.
+     * @return {@code RlcpResponse} implementation instance for specified method parsed from param String, or exception.
      * @throws BadRlcpResponseException if RLCP-response the is invalid.
      *                                  For example, RLCP-response has bad header or RLCP-response has bad body.
      * @see RlcpResponse
@@ -275,7 +283,7 @@ public class Rlcp {
      * Parse the content of the given RLCP-response body and return a new object {@code RlcpResponseBody}.
      *
      * @param rlcpBodyString string RLCP-response body
-     * @return {@code RlcpResponseBody} implementation instance for specified method parsed from param String, or null.
+     * @return {@code RlcpResponseBody} implementation instance for specified method parsed from param String, or exception.
      * @throws BadRlcpBodyException if RLCP-response body the is invalid.
      * @see RlcpResponseBody
      */
@@ -288,7 +296,7 @@ public class Rlcp {
             case "calculate":
                 return parseResponseBody(rlcpBodyString, RlcpCalculateResponseBody.class);
             default:
-                return null;
+                throw new RlcpException("bad response body");
         }
     }
 
