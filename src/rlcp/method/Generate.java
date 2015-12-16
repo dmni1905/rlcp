@@ -53,16 +53,6 @@ public class Generate extends RlcpMethod {
     }
 
     /**
-     * Returns RlcpGenerateParser.
-     *
-     * @return RlcpGenerateParser
-     */
-    @Override
-    public RlcpGenerateParser getParser() {
-        return new RlcpGenerateParser();
-    }
-
-    /**
      * Returns RlcpGenerateResponseBody.
      *
      * @return RlcpGenerateResponseBody

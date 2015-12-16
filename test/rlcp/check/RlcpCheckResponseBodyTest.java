@@ -3,7 +3,7 @@ package rlcp.check;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.*;
-import rlcp.RlcpParser;
+import rlcp.Rlcp;
 import rlcp.exception.BadRlcpBodyException;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.BadRlcpResponseException;
@@ -48,7 +48,7 @@ public class RlcpCheckResponseBodyTest {
                 + "\n"
                 + "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE Response SYSTEM \"http://de.ifmo.ru/--DTD/Response.dtd\"><Response><CheckingResult id=\"33251\" Time=\"0\" Result=\"1\"><!----></CheckingResult><CheckingResult id=\"33261\" Time=\"0\" Result=\"1\"><!----></CheckingResult><CheckingResult id=\"33271\" Time=\"0\" Result=\"0\"><!----></CheckingResult><CheckingResult id=\"33281\" Time=\"0\" Result=\"0\"><!----></CheckingResult><CheckingResult id=\"33291\" Time=\"0\" Result=\"0\"><!----></CheckingResult></Response>";
 
-        new RlcpCheckParser().parseResponse(src);
+        Rlcp.parseResponse(src, RlcpCheckResponse.class);
         
         List<CheckingResult> list = new ArrayList<CheckingResult>();
         list.add(new CheckingResult(1, 2, "res", "out"));

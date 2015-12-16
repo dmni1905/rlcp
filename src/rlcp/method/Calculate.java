@@ -53,16 +53,6 @@ public class Calculate extends RlcpMethod {
     }
 
     /**
-     * Returns RlcpCalculateParser.
-     *
-     * @return RlcpCalculateParser
-     */
-    @Override
-    public RlcpCalculateParser getParser() {
-        return new RlcpCalculateParser();
-    }
-
-    /**
      * Returns RlcpRequestHeader for Calculate method with specified url and
      * contentLength.
      *

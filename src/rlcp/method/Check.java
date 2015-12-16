@@ -74,16 +74,6 @@ public class Check extends RlcpMethod {
     }
 
     /**
-     * Returns RlcpCheckParser.
-     *
-     * @return RlcpCheckParser
-     */
-    @Override
-    public RlcpCheckParser getParser() {
-        return new RlcpCheckParser();
-    }
-
-    /**
      * Returns RlcpRequestHeader for Check method with specified url and
      * contentLength.
      *

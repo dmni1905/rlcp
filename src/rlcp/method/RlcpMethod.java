@@ -54,15 +54,6 @@ public abstract class RlcpMethod {
     public abstract Class getResponseBodyClass();
 
     /**
-     * Returns RlcpParser implementation for this method. Should NEVER return
-     * null.
-     *
-     * @return RlcpParser implementation for this method. Should NEVER return
-     * null
-     */
-    public abstract RlcpParser getParser();
-
-    /**
      * Returns RlcpRequest instance for this method with specified body and url.
      *
      * @param url  url to RLCP-server
@@ -71,7 +62,7 @@ public abstract class RlcpMethod {
      */
     public RlcpRequest buildRequest(String url, RlcpRequestBody body) {
         if (!getRequestBodyClass().isInstance(body)) {
-            throw new IllegalArgumentException("body is not instanse of " + getRequestBodyClass().getName());
+            throw new IllegalArgumentException("body is not instance of " + getRequestBodyClass().getName());
         }
         try {
             RlcpRequestHeader header = createRequestHeader(RlcpUrl.parse(url), body.getContentLength());

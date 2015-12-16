@@ -31,6 +31,10 @@ public class RlcpCalculateResponseBody extends RlcpResponseBody {
         this(new CalculatingResult(text, code));
     }
 
+    public CalculatingResult getCalculatingResult() {
+        return calculatingResult;
+    }
+
     /**
      * Returns XML document representation of RlcpCalculateResponseBody.
      *

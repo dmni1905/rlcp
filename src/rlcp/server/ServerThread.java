@@ -81,7 +81,7 @@ public class ServerThread extends Thread {
     private RlcpRequest parseRequest(String serverInput, RlcpRequest request) throws Exception {
         String methodSupposed = getRawMethod(serverInput);
         ServerMethod method = ServerMethod.lookForMethod(methodSupposed);
-        request = method.parseRequest(serverInput);
+        request = Rlcp.parseRequest(serverInput);
         return request;
     }
 

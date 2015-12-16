@@ -32,6 +32,11 @@ public class RlcpGenerateResponseBody extends RlcpResponseBody {
         this(new GeneratingResult(text, code, instructions));
     }
 
+
+    public GeneratingResult getGeneratingResult() {
+        return generatingResult;
+    }
+
     /**
      * Returns XML document representation of RlcpGenerateResponseBody.
      *

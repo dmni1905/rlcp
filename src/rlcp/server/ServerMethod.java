@@ -55,11 +55,6 @@ public enum ServerMethod {
      */
     INVALID(null) {
         @Override
-        public RlcpRequest parseRequest(String rlcpRequestSource) throws BadRlcpRequestException {
-            throw new UnsupportedRlcpMethodException("INVALID.parseRequest will never be supported");
-        }
-
-        @Override
         public RlcpRequestFlow getFlow() {
             throw new UnsupportedRlcpMethodException("INVALID.getFlow will never be supported");
         }
@@ -92,18 +87,6 @@ public enum ServerMethod {
      * @return flow of requests
      */
     public abstract RlcpRequestFlow getFlow();
-
-    /**
-     * Parses rlcpRequest instance from its String representation using {@code flow.Parser}
-     * implementations.
-     *
-     * @param rlcpRequestSource RlcpRequest String representation
-     * @return parsed RlcpResponse instance
-     * @throws BadRlcpRequestException
-     */
-    public RlcpRequest parseRequest(String rlcpRequestSource) throws BadRlcpRequestException {
-        return method.getParser().parseRequest(rlcpRequestSource);
-    }
 
     /**
      * Returns ServerMethod instance with specified name (ignoring case) or {@code ServerMethod.INVALID}

@@ -91,11 +91,7 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
             } catch (Exception ex){
             }
         }
-        return parseResponse(request, rawResponse);
-    }
-
-    private Response parseResponse(Request request, String raw) throws BadRlcpResponseException {
-        return (Response) request.getMethod().getParser().parseResponse(raw);
+        return (Response) Rlcp.parseResponse(rawResponse);
     }
 
     private void send(String requestString, Socket socket) throws IOException {
