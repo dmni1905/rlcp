@@ -13,6 +13,11 @@ public class SingletonProcessorFactory<T extends Processor> implements Processor
 
     private T instance;
 
+    /**
+     * Simple constructor.
+     *
+     * @param instance interface for RLCP methods processing flow modules
+     */
     public SingletonProcessorFactory(T instance) {
         Objects.requireNonNull(instance);
         this.instance = instance;

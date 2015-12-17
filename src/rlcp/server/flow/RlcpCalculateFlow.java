@@ -6,7 +6,7 @@ import rlcp.calculate.CalculatingResult;
 import rlcp.calculate.RlcpCalculateRequestBody;
 import rlcp.calculate.RlcpCalculateResponseBody;
 import rlcp.server.logger.Logger;
-import rlcp.server.processor.CalculateProcessor;
+import rlcp.server.processor.calculate.CalculateProcessor;
 import rlcp.server.processor.factory.ProcessorFactoryContainer;
 
 /**

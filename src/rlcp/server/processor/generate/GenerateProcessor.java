@@ -1,6 +1,7 @@
-package rlcp.server.processor;
+package rlcp.server.processor.generate;
 
 import rlcp.generate.GeneratingResult;
+import rlcp.server.processor.Processor;
 
 /**
  * Interface for Generate method processing module.

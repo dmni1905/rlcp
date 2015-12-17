@@ -1,7 +1,7 @@
-package rlcp.server.processor;
+package rlcp.server.processor.check;
 
 import rlcp.check.CheckingResult;
-import rlcp.server.processor.PreCheckProcessor.PreCheckResult;
+import rlcp.server.processor.Processor;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @see rlcp.server.processor.factory.ProcessorFactoryContainer
  * @see rlcp.server.processor.factory.ProcessorFactory
  */
-public interface PostCheckProcessor<T> extends Processor {
+public interface PostCheckProcessor extends Processor {
     /**
      * General method. It will be run after checking.
      *
@@ -21,5 +21,5 @@ public interface PostCheckProcessor<T> extends Processor {
      * @param checkingResults list of results for each check unit
      * @param checkers        result of checking entity
      */
-    void postCheck(PreCheckResult<T> preCheckResult, List<CheckingResult> checkingResults, List<CheckProcessor> checkers);
+    void postCheck(PreCheckProcessor.PreCheckResult preCheckResult, List<CheckingResult> checkingResults, List<CheckProcessor> checkers);
 }

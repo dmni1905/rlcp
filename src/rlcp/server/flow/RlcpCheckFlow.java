@@ -7,9 +7,12 @@ import rlcp.check.RlcpCheckRequestBody;
 import rlcp.check.RlcpCheckResponseBody;
 import rlcp.generate.GeneratingResult;
 import rlcp.server.logger.Logger;
-import rlcp.server.processor.*;
-import rlcp.server.processor.CheckProcessor.CheckingSingleConditionResult;
-import rlcp.server.processor.PreCheckProcessor.PreCheckResult;
+import rlcp.server.processor.check.CheckProcessor;
+import rlcp.server.processor.check.CheckProcessor.CheckingSingleConditionResult;
+import rlcp.server.processor.check.PostCheckProcessor;
+import rlcp.server.processor.check.PreCheckProcessor;
+import rlcp.server.processor.check.PreCheckProcessor.PreCheckResult;
+import rlcp.server.processor.check.PreCheckResultAware;
 import rlcp.server.processor.factory.ProcessorFactoryContainer;
 
 import java.math.BigDecimal;

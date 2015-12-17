@@ -6,8 +6,12 @@ import java.util.Map;
 import rlcp.calculate.CalculatingResult;
 import rlcp.exception.NotImplementedMethodException;
 import rlcp.generate.GeneratingResult;
-import rlcp.method.Calculate;
 import rlcp.server.processor.*;
+import rlcp.server.processor.calculate.CalculateProcessor;
+import rlcp.server.processor.check.CheckProcessor;
+import rlcp.server.processor.check.PostCheckProcessor;
+import rlcp.server.processor.check.PreCheckProcessor;
+import rlcp.server.processor.generate.GenerateProcessor;
 
 /**
  * Class for flow modules container.
@@ -136,6 +140,7 @@ public class ProcessorFactoryContainer {
      * Return one instance of extends {@code Processor} or null
      *
      * @param key name class
+     * @param <T>
      * @return {@code Processor} implementation instance for processing flow module or null
      * @see Processor
      */

@@ -1,7 +1,8 @@
-package rlcp.server.processor;
+package rlcp.server.processor.check;
 
 import rlcp.generate.GeneratingResult;
 import rlcp.check.ConditionForChecking;
+import rlcp.server.processor.Processor;
 
 import java.util.List;
 

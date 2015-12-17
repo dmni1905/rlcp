@@ -5,7 +5,7 @@ import rlcp.generate.GeneratingResult;
 import rlcp.generate.RlcpGenerateRequestBody;
 import rlcp.generate.RlcpGenerateResponseBody;
 import rlcp.server.logger.Logger;
-import rlcp.server.processor.GenerateProcessor;
+import rlcp.server.processor.generate.GenerateProcessor;
 import rlcp.server.processor.factory.ProcessorFactoryContainer;
 
 /**

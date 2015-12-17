@@ -1,6 +1,6 @@
-package rlcp.server.processor;
+package rlcp.server.processor.check;
 
-import rlcp.server.processor.PreCheckProcessor.PreCheckResult;
+import rlcp.server.processor.check.PreCheckProcessor.PreCheckResult;
 
 /**
  * When you creates an objects instance that implements this interface,
