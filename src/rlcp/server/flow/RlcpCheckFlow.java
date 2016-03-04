@@ -58,7 +58,7 @@ public class RlcpCheckFlow extends RlcpRequestFlow {
             if (checkProcessor == null) {
                 checkingResult = getEmptyCheckingResult(checkUnit);
             } else {
-                checkingResult = performCheck(requestBody, preCheckResult, checkUnit, checkProcessor);
+                checkingResult = performCheck(processorFactoryContainer, requestBody, preCheckResult, checkUnit, checkProcessor);
             }
             checkResults.add(checkingResult);
         }
@@ -83,9 +83,10 @@ public class RlcpCheckFlow extends RlcpRequestFlow {
         return checkingResult;
     }
 
-    private CheckingResult performCheck(RlcpCheckRequestBody requestBody, PreCheckResult preCheckResult, ConditionForChecking checkUnit, CheckProcessor checkProcessor) {
+    private CheckingResult performCheck(ProcessorFactoryContainer processorFactoryContainer, RlcpCheckRequestBody requestBody, PreCheckResult preCheckResult, ConditionForChecking checkUnit, CheckProcessor checkProcessor) {
         CheckingResult checkingResult;
-        if (checkProcessor instanceof PreCheckResultAware) {
+        PreCheckProcessor preCheckAlgorithm = processorFactoryContainer.getPreCheckAlgorithm();
+        if ((checkProcessor instanceof PreCheckResultAware) && (preCheckAlgorithm!= null)) {
             ((PreCheckResultAware) checkProcessor).setPreCheckResult(preCheckResult);
         }
 
