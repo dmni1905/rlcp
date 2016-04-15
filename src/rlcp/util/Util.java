@@ -132,6 +132,7 @@ public class Util {
         String parsedMethod = Util.omitLineSeparatorArtefacts(header);
         if (!(parsedMethod.equalsIgnoreCase("check")
                 || parsedMethod.equalsIgnoreCase("generate")
+                || parsedMethod.equalsIgnoreCase("echo")
                 || parsedMethod.equalsIgnoreCase("calculate"))) {
             throw new BadRlcpHeaderException("Wrong method called in " + headerString);
         }

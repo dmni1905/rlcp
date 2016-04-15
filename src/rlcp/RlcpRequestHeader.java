@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rlcp.exception.BadRlcpHeaderException;
-import rlcp.method.Calculate;
-import rlcp.method.Check;
-import rlcp.method.Generate;
-import rlcp.method.RlcpMethod;
+import rlcp.method.*;
 import rlcp.util.Util;
 
 import static rlcp.util.Util.*;
@@ -187,5 +184,9 @@ public class RlcpRequestHeader implements Serializable {
      */
     public RlcpHeaderFieldsContainer getOptionalHeaderFieldsContainer() {
         return headerFields;
+    }
+
+    public static RlcpRequestHeader createEchoHeader(RlcpUrl url, int contentLength) {
+        return new RlcpRequestHeader(Echo.getInstance(), url, contentLength);
     }
 }

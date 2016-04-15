@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.UnknownHostException;
 
+import rlcp.exception.BadRlcpHeaderException;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.BadRlcpResponseException;
+import rlcp.exception.RlcpException;
 import rlcp.method.RlcpMethod;
 import rlcp.util.Util;
 
@@ -48,7 +50,7 @@ public abstract class RlcpRequest implements Serializable {
      * from RLCP-server
      * @throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException
      */
-    public RlcpResponse execute() throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException {
+    public RlcpResponse execute() throws RlcpException {
         return execute(0);
     }
 
@@ -61,7 +63,7 @@ public abstract class RlcpRequest implements Serializable {
      * from RLCP-server
      * @throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException
      */
-    public RlcpResponse execute(int timeout) throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException {
+    public RlcpResponse execute(int timeout) throws RlcpException {
         return getMethod().getConnector().execute(this, timeout);
     }
 

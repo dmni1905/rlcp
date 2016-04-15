@@ -5,8 +5,10 @@ import java.net.UnknownHostException;
 import rlcp.RlcpRequest;
 import rlcp.RlcpRequestBody;
 import rlcp.RlcpRequestHeader;
+import rlcp.exception.BadRlcpHeaderException;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.BadRlcpResponseException;
+import rlcp.exception.RlcpException;
 import rlcp.method.Generate;
 import rlcp.util.Util;
 
@@ -75,7 +77,7 @@ public class RlcpGenerateRequest extends RlcpRequest {
      * @see RlcpGenerateResponse
      */
     @Override
-    public RlcpGenerateResponse execute(int timeout) throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException {
+    public RlcpGenerateResponse execute(int timeout) throws RlcpException {
         return (RlcpGenerateResponse) super.execute(timeout);
     }
 
@@ -89,7 +91,7 @@ public class RlcpGenerateRequest extends RlcpRequest {
      * @see RlcpGenerateResponse
      */
     @Override
-    public RlcpGenerateResponse execute() throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException {
+    public RlcpGenerateResponse execute() throws RlcpException {
         return execute(0);
     }
 }

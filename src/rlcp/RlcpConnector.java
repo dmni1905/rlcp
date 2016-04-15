@@ -5,12 +5,17 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import rlcp.echo.RlcpEchoRequest;
+import rlcp.echo.RlcpEchoResponse;
 import rlcp.calculate.RlcpCalculateRequest;
 import rlcp.calculate.RlcpCalculateResponse;
 import rlcp.check.RlcpCheckRequest;
 import rlcp.check.RlcpCheckResponse;
+import rlcp.exception.BadRlcpHeaderException;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.BadRlcpResponseException;
+import rlcp.exception.RlcpException;
 import rlcp.generate.RlcpGenerateRequest;
 import rlcp.generate.RlcpGenerateResponse;
 import rlcp.util.Util;
@@ -36,7 +41,7 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
     public static RlcpConnector getGenericConnector() {
         return new RlcpConnector();
     }
-    
+
     /**
      * Returns new instance of RlcpConnector for Check RLCP method.
      *
@@ -53,6 +58,10 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
      */
     public static RlcpConnector<RlcpGenerateRequest, RlcpGenerateResponse> getGenerateConnector() {
         return new RlcpConnector<RlcpGenerateRequest, RlcpGenerateResponse>();
+    }
+
+    public static RlcpConnector<RlcpEchoRequest, RlcpEchoResponse> getEchoConnector () {
+        return new RlcpConnector<RlcpEchoRequest, RlcpEchoResponse>();
     }
 
     /**
@@ -75,7 +84,7 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
      * @throws IOException
      * @throws BadRlcpResponseException
      */
-    public Response execute(Request request, int timeout) throws IOException, BadRlcpResponseException, BadRlcpRequestException {
+    public Response execute(Request request, int timeout) throws RlcpException {
         Socket socket = null;
         String rawResponse;
         try {
@@ -84,11 +93,11 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
             send(requestString, socket);
             rawResponse = Util.readSocketInputUntilInputShutdown(socket);
         } catch (Exception exc) {
-            throw new BadRlcpResponseException(exc);
+            throw new RlcpException(exc);
         } finally {
-            try{
+            try {
                 socket.close();
-            } catch (Exception ex){
+            } catch (Exception ex) {
             }
         }
         return (Response) Rlcp.parseResponse(rawResponse);

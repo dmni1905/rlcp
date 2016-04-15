@@ -3,6 +3,10 @@ package rlcp;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
+import rlcp.echo.RlcpEchoRequest;
+import rlcp.echo.RlcpEchoRequestBody;
+import rlcp.echo.RlcpEchoResponse;
+import rlcp.echo.RlcpEchoResponseBody;
 import rlcp.calculate.RlcpCalculateRequest;
 import rlcp.calculate.RlcpCalculateRequestBody;
 import rlcp.calculate.RlcpCalculateResponse;
@@ -63,6 +67,9 @@ public class Rlcp {
         } catch (BadRlcpHeaderException ex) {
             throw new BadRlcpRequestException(ex);
         }
+        if(clazz == RlcpEchoRequest.class){
+            return clazz.cast(new RlcpEchoRequest(parsedHeader, new RlcpEchoRequestBody()));
+        }
         String currentMethod = RlcpMethod.Recognizer.recognizeMethod(bodyBuilder.toString()).getName().toLowerCase();
         if (clazz.getName().toLowerCase().contains(currentMethod)) {
             try {
@@ -73,6 +80,8 @@ public class Rlcp {
                         return clazz.cast(new RlcpCheckRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpCheckRequestBody.class)));
                     case "calculate":
                         return clazz.cast(new RlcpCalculateRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpCalculateRequestBody.class)));
+                    case "echo":
+                        return clazz.cast(new RlcpEchoRequest(parsedHeader, parseRequestBody(bodyBuilder.toString(), RlcpEchoRequestBody.class)));
                     default:
                         throw new RlcpException("bad request");
                 }
@@ -113,6 +122,8 @@ public class Rlcp {
                     return clazz.cast(parseCheckRequestBody(rlcpBodyString));
                 case "calculate":
                     return clazz.cast(parseCalculateRequestBody(rlcpBodyString));
+                case "echo":
+                    return clazz.cast(parseEchoRequestBody(rlcpBodyString));
                 default:
                     throw new RlcpException("bad request body");
             }
@@ -157,6 +168,9 @@ public class Rlcp {
         } catch (BadRlcpHeaderException ex) {
             throw new BadRlcpResponseException(ex);
         }
+        if(clazz == RlcpEchoResponse.class){
+            return clazz.cast(new RlcpEchoResponse(parsedHeader, new RlcpEchoResponseBody()));
+        }
         String currentMethod = RlcpMethod.Recognizer.recognizeMethod(bodyBuilder.toString()).getName().toLowerCase();
         if (clazz.getName().toLowerCase().contains(currentMethod)) {
             try {
@@ -168,7 +182,7 @@ public class Rlcp {
                     case "calculate":
                         return clazz.cast(new RlcpCalculateResponse(parsedHeader, parseResponseBody(bodyBuilder.toString(), RlcpCalculateResponseBody.class)));
                     default:
-                        throw new RlcpException("bad response");
+                        return clazz.cast(new RlcpEchoResponse(parsedHeader, new RlcpEchoResponseBody()));
                 }
             } catch (BadRlcpBodyException ex) {
                 throw new BadRlcpResponseException(ex);
@@ -231,6 +245,8 @@ public class Rlcp {
                 return parseRequest(rlcpRequestString, RlcpCheckRequest.class);
             case "calculate":
                 return parseRequest(rlcpRequestString, RlcpCalculateRequest.class);
+            case "echo":
+                return parseRequest(rlcpRequestString, RlcpEchoRequest.class);
             default:
                 throw new RlcpException("bad request");
         }
@@ -266,16 +282,31 @@ public class Rlcp {
      *                                  For example, RLCP-response has bad header or RLCP-response has bad body.
      * @see RlcpResponse
      */
-    public static RlcpResponse parseResponse(String rlcpResponseString) throws BadRlcpResponseException {
-        switch (RlcpMethod.Recognizer.recognizeMethod(rlcpResponseString).getName().toLowerCase()) {
-            case "generate":
-                return parseResponse(rlcpResponseString, RlcpGenerateResponse.class);
-            case "check":
-                return parseResponse(rlcpResponseString, RlcpCheckResponse.class);
-            case "calculate":
-                return parseResponse(rlcpResponseString, RlcpCalculateResponse.class);
-            default:
-                throw new RlcpException("bad response");
+    public static RlcpResponse parseResponse(String rlcpResponseString) throws RlcpException {
+        try {
+            String responseHeaderString = rlcpResponseString.substring(0, rlcpResponseString.indexOf("\r\n"));
+            if (RlcpResponseHeader.parse(responseHeaderString).isSuccessful()) {
+                RlcpMethod method = RlcpMethod.Recognizer.recognizeMethod(rlcpResponseString);
+                if (method != null) {
+                    switch (method.getName().toLowerCase()) {
+                        case "generate":
+                            return parseResponse(rlcpResponseString, RlcpGenerateResponse.class);
+                        case "check":
+                            return parseResponse(rlcpResponseString, RlcpCheckResponse.class);
+                        case "calculate":
+                            return parseResponse(rlcpResponseString, RlcpCalculateResponse.class);
+                        default:
+                            return parseResponse(rlcpResponseString, RlcpEchoResponse.class);
+                    }
+                } else {
+                    return parseResponse(rlcpResponseString, RlcpEchoResponse.class);
+                }
+
+            } else {
+                return parseResponse(rlcpResponseString, RlcpEchoResponse.class);
+            }
+        } catch (Exception e) {
+            throw new RlcpException(e);
         }
     }
 
@@ -296,7 +327,7 @@ public class Rlcp {
             case "calculate":
                 return parseResponseBody(rlcpBodyString, RlcpCalculateResponseBody.class);
             default:
-                throw new RlcpException("bad response body");
+                return parseResponseBody(rlcpBodyString, RlcpEchoResponseBody.class);
         }
     }
 
@@ -374,6 +405,10 @@ public class Rlcp {
 
     }
 
+    private static RlcpEchoRequestBody parseEchoRequestBody(String rlcpBodyString) throws BadRlcpBodyException {
+        return new RlcpEchoRequestBody();
+    }
+
     private static RlcpGenerateResponseBody parseGenerateResponseBody(String rlcpBodyString) throws BadRlcpBodyException {
         Node resultNode;
         try {
@@ -419,5 +454,9 @@ public class Rlcp {
         return new RlcpCalculateResponseBody(
                 DomHelper.getTextFromNodeByXpath(resultNode, PRE_GENERATED_TEXT + "/comment()"),
                 DomHelper.getTextFromNodeByXpath(resultNode, PRE_GENERATED_CODE + "/comment()"));
+    }
+
+    private static RlcpEchoResponseBody parseEchoResponseBody(String rlcpBodyString) throws BadRlcpBodyException {
+        return new RlcpEchoResponseBody();
     }
 }

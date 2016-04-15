@@ -4,16 +4,10 @@ import rlcp.RlcpRequest;
 import rlcp.RlcpResponse;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.UnsupportedRlcpMethodException;
-import rlcp.method.Calculate;
-import rlcp.method.Check;
-import rlcp.method.Generate;
-import rlcp.method.RlcpMethod;
+import rlcp.method.*;
 import rlcp.server.config.Config;
+import rlcp.server.flow.*;
 import rlcp.server.processor.factory.ProcessorFactoryContainer;
-import rlcp.server.flow.RlcpCalculateFlow;
-import rlcp.server.flow.RlcpCheckFlow;
-import rlcp.server.flow.RlcpGenerateFlow;
-import rlcp.server.flow.RlcpRequestFlow;
 
 /**
  * Enumeration of RLCP-server methods. It is used to execute requests.
@@ -43,6 +37,13 @@ public enum ServerMethod {
     /**
      * RLCP-server implementation for Generate method.
      */
+    ECHO(Echo.getInstance()) {
+        @Override
+        public RlcpRequestFlow getFlow() {
+            return new RlcpEchoFlow();
+        }
+    },
+
     GENERATE(Generate.getInstance()) {
         @Override
         public RlcpRequestFlow getFlow() {

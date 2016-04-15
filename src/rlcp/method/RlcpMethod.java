@@ -158,6 +158,8 @@ public abstract class RlcpMethod {
                 return Generate.getInstance();
             } else if (rawInLower.startsWith("calculate")) {
                 return Calculate.getInstance();
+            } else if (rawInLower.startsWith("echo")) {
+                return Echo.getInstance();
             }
 
             if (rawInLower.contains("conditionforchecking")) {
