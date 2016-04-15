@@ -53,16 +53,16 @@
         <repository>
             <id>rlcp-repo</id>
             <name>rlcp</name>
-            <url>git:releases://git@bitbucket.org:efimchick/rlcp.git</url>
+            <url>git:master://git@bitbucket.org:efimchick/rlcp.git</url>
         </repository>
         <snapshotRepository>
             <id>rlcp-repo</id>
             <name>rlcp</name>
-            <url>git:releases://git@bitbucket.org:efimchick/rlcp.git</url>
+            <url>git:master://git@bitbucket.org:efimchick/rlcp.git</url>
         </snapshotRepository>
         <site>
             <id>rlcp-repo</id>
-            <url>git:releases://git@bitbucket.org:efimchick/rlcp.git</url>
+            <url>git:master://git@bitbucket.org:efimchick/rlcp.git</url>
         </site>
     </distributionManagement>
 
