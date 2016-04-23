@@ -50,7 +50,7 @@ public abstract class RlcpRequest implements Serializable {
      * from RLCP-server
      * @throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException
      */
-    public RlcpResponse execute() throws RlcpException {
+    public RlcpResponse execute() {
         return execute(0);
     }
 
@@ -63,7 +63,7 @@ public abstract class RlcpRequest implements Serializable {
      * from RLCP-server
      * @throws UnknownHostException, IOException, BadRlcpResponseException, BadRlcpRequestException
      */
-    public RlcpResponse execute(int timeout) throws RlcpException {
+    public RlcpResponse execute(int timeout) {
         return getMethod().getConnector().execute(this, timeout);
     }
 

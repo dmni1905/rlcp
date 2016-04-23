@@ -84,7 +84,7 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
      * @throws IOException
      * @throws BadRlcpResponseException
      */
-    public Response execute(Request request, int timeout) throws RlcpException {
+    public Response execute(Request request, int timeout) {
         Socket socket = null;
         String rawResponse;
         try {

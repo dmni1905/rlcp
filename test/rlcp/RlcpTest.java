@@ -1,6 +1,5 @@
 package rlcp;
 
-import org.dom4j.Node;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import rlcp.calculate.RlcpCalculateRequest;
@@ -11,16 +10,13 @@ import rlcp.check.*;
 import rlcp.exception.BadRlcpBodyException;
 import rlcp.exception.BadRlcpRequestException;
 import rlcp.exception.BadRlcpResponseException;
+import rlcp.exception.RlcpException;
 import rlcp.generate.*;
-import rlcp.util.Constants;
-import rlcp.util.DomHelper;
-
-import java.util.ArrayList;
-import java.util.List;
+import rlcp.method.RlcpMethod;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static rlcp.util.Constants.*;
+import static rlcp.method.RlcpMethod.*;
 
 public class RlcpTest {
     private static String rlcpCalculateRequest;
@@ -251,32 +247,32 @@ public class RlcpTest {
         assertEquals(request.getBody().getCondition(), "generating cond");
     }
 
-    @Test(expected = BadRlcpRequestException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckRequestCastExceptionIfGiveGenerateRequest() throws BadRlcpRequestException {
         RlcpCheckRequest request = Rlcp.parseRequest(rlcpGenerateRequest, RlcpCheckRequest.class);
     }
 
-    @Test(expected = BadRlcpRequestException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckRequestCastExceptionIfGiveCalculateRequest() throws BadRlcpRequestException {
         RlcpCheckRequest request = Rlcp.parseRequest(rlcpCalculateRequest, RlcpCheckRequest.class);
     }
 
-    @Test(expected = BadRlcpRequestException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateRequestCastExceptionIfGiveGenerateRequest() throws BadRlcpRequestException {
         RlcpCalculateRequest request = Rlcp.parseRequest(rlcpGenerateRequest, RlcpCalculateRequest.class);
     }
 
-    @Test(expected = BadRlcpRequestException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateRequestCastExceptionIfGiveCheckRequest() throws BadRlcpRequestException {
         RlcpCalculateRequest request = Rlcp.parseRequest(rlcpCheckRequest, RlcpCalculateRequest.class);
     }
 
-    @Test(expected = BadRlcpRequestException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateRequestCastExceptionIfGiveCheckRequest() throws BadRlcpRequestException {
         RlcpGenerateRequest request = Rlcp.parseRequest(rlcpCheckRequest, RlcpGenerateRequest.class);
     }
 
-    @Test(expected = BadRlcpRequestException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateRequestCastExceptionIfGiveCalculateRequest() throws BadRlcpRequestException {
         RlcpGenerateRequest request = Rlcp.parseRequest(rlcpCalculateRequest, RlcpGenerateRequest.class);
     }
@@ -326,17 +322,17 @@ public class RlcpTest {
         RlcpGenerateRequest request = Rlcp.parseRequest(rlcpGenerateRequestBody, RlcpGenerateRequest.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BadRlcpRequestException.class)
     public void testParseGenerateRequestCastExceptionNoBody() throws BadRlcpRequestException {
         RlcpGenerateRequest request = Rlcp.parseRequest(rlcpGenerateRequest.replace(rlcpGenerateRequestBody, ""), RlcpGenerateRequest.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BadRlcpRequestException.class)
     public void testParseCalculateRequestCastExceptionNoBody() throws BadRlcpRequestException {
         RlcpCalculateRequest request = Rlcp.parseRequest(rlcpCalculateRequest.replace(rlcpCalculateRequestBody, ""), RlcpCalculateRequest.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BadRlcpRequestException.class)
     public void testParseCheckRequestCastExceptionNoBody() throws BadRlcpRequestException {
         RlcpCheckRequest request = Rlcp.parseRequest(rlcpCheckRequest.replace(rlcpCheckRequestBody, ""), RlcpCheckRequest.class);
     }
@@ -388,47 +384,47 @@ public class RlcpTest {
         assertEquals(requestBody.getCondition(), "generating cond");
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckRequestBodyCastExceptionIfGiveGenerateRequest() throws BadRlcpBodyException {
         RlcpCheckRequestBody requestBody = Rlcp.parseRequestBody(rlcpGenerateRequestBody, RlcpCheckRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckRequestBodyCastExceptionIfGiveCalculateRequest() throws BadRlcpBodyException {
         RlcpCheckRequestBody requestBody = Rlcp.parseRequestBody(rlcpCalculateRequestBody, RlcpCheckRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateRequestBodyCastExceptionIfGiveCheckRequest() throws BadRlcpBodyException {
         RlcpCalculateRequestBody requestBody = Rlcp.parseRequestBody(rlcpCheckRequestBody, RlcpCalculateRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateRequestBodyCastExceptionIfGiveGenerateRequest() throws BadRlcpBodyException {
         RlcpCalculateRequestBody requestBody = Rlcp.parseRequestBody(rlcpGenerateRequestBody, RlcpCalculateRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateRequestBodyCastExceptionIfGiveCalculateRequest() throws BadRlcpBodyException {
         RlcpGenerateRequestBody requestBody = Rlcp.parseRequestBody(rlcpCalculateRequestBody, RlcpGenerateRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateRequestBodyCastExceptionIfGiveCheckRequest() throws BadRlcpBodyException {
         RlcpGenerateRequestBody requestBody = Rlcp.parseRequestBody(rlcpCheckRequestBody, RlcpGenerateRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseGenerateBodyRequestCastExceptionBadHeader() throws BadRlcpBodyException {
         RlcpGenerateRequestBody requestBody = Rlcp.parseRequestBody(rlcpGenerateRequestBody.replace("<Request>", "<>"), RlcpGenerateRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCheckBodyRequestCastExceptionBadHeader() throws BadRlcpBodyException {
         RlcpCheckRequestBody requestBody = Rlcp.parseRequestBody(rlcpCheckRequestBody.replace("<Request>", "<>"), RlcpCheckRequestBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCalculateBodyRequestCastExceptionBadHeader() throws BadRlcpBodyException {
         RlcpCalculateRequestBody requestBody = Rlcp.parseRequestBody(rlcpCalculateRequestBody.replace("<Request>", "<>"), RlcpCalculateRequestBody.class);
     }
@@ -451,12 +447,8 @@ public class RlcpTest {
     //    ------------------------------------------ ParseResponse(String, Class) ------------------------------------------
     @Test
     public void testParseCalculateValidResponseCast() {
-        RlcpCalculateResponse response = null;
-        try {
-            response = Rlcp.parseResponse(rlcpCalculateResponse, RlcpCalculateResponse.class);
-        } catch (BadRlcpResponseException e) {
-            e.printStackTrace();
-        }
+        RlcpCalculateResponse response = Rlcp.parseResponse(rlcpCalculateResponse, RlcpCalculateResponse.class);
+
         assertEquals(response.getMethod().getName().toLowerCase(), "calculate");
         assertEquals(response.getHeader().getContentLength(), 256);
 
@@ -466,12 +458,7 @@ public class RlcpTest {
 
     @Test
     public void testParseCheckValidResponseCast() {
-        RlcpCheckResponse response = null;
-        try {
-            response = Rlcp.parseResponse(rlcpCheckResponse, RlcpCheckResponse.class);
-        } catch (BadRlcpResponseException e) {
-            e.printStackTrace();
-        }
+        RlcpCheckResponse response = Rlcp.parseResponse(rlcpCheckResponse, RlcpCheckResponse.class);
         assertEquals(response.getMethod().getName().toLowerCase(), "check");
         assertEquals(response.getHeader().getContentLength(), 297);
 
@@ -481,12 +468,8 @@ public class RlcpTest {
 
     @Test
     public void testParseGenerateValidResponseCast() {
-        RlcpGenerateResponse response = null;
-        try {
-            response = Rlcp.parseResponse(rlcpGenerateResponse, RlcpGenerateResponse.class);
-        } catch (BadRlcpResponseException e) {
-            e.printStackTrace();
-        }
+        RlcpGenerateResponse response = Rlcp.parseResponse(rlcpGenerateResponse, RlcpGenerateResponse.class);
+
         assertEquals(response.getMethod().getName().toLowerCase(), "generate");
         assertEquals(response.getHeader().getContentLength(), 319);
         assertEquals(response.getHeader().getResponseCode(), "200");
@@ -496,47 +479,47 @@ public class RlcpTest {
         assertTrue(response.getBody().getDocument().asXML().contains("<Instructions><!--instructions--></Instructions>"));
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckResponseCastExceptionIfGiveGenerateResponse() throws BadRlcpResponseException {
         RlcpCheckResponse response = Rlcp.parseResponse(rlcpGenerateResponse, RlcpCheckResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckResponseCastExceptionIfGiveCalculateResponse() throws BadRlcpResponseException {
         RlcpCheckResponse response = Rlcp.parseResponse(rlcpCalculateResponse, RlcpCheckResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateResponseCastExceptionIfGiveGenerateResponse() throws BadRlcpResponseException {
         RlcpCalculateResponse response = Rlcp.parseResponse(rlcpGenerateResponse, RlcpCalculateResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateResponseCastExceptionIfGiveCheckResponse() throws BadRlcpResponseException {
         RlcpCalculateResponse response = Rlcp.parseResponse(rlcpCheckResponse, RlcpCalculateResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateResponseCastExceptionIfGiveCheckResponse() throws BadRlcpResponseException {
         RlcpGenerateResponse response = Rlcp.parseResponse(rlcpCheckResponse, RlcpGenerateResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateResponseCastExceptionIfGiveCalculateResponse() throws BadRlcpResponseException {
         RlcpGenerateResponse response = Rlcp.parseResponse(rlcpCalculateResponse, RlcpGenerateResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = RlcpException.class)
     public void testParseGenerateResponseCastExceptionBadBody() throws BadRlcpResponseException {
         RlcpGenerateResponse response = Rlcp.parseResponse(rlcpGenerateResponse.replace("<Response>", "<>"), RlcpGenerateResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCheckResponseCastExceptionBadBody() throws BadRlcpResponseException {
         RlcpCheckResponse response = Rlcp.parseResponse(rlcpCheckResponse.replace("<Response>", "<>"), RlcpCheckResponse.class);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCalculateResponseCastExceptionBadBody() throws BadRlcpResponseException {
         RlcpCalculateResponse response = Rlcp.parseResponse(rlcpCalculateResponse.replace("<Response>", "<>"), RlcpCalculateResponse.class);
     }
@@ -574,12 +557,7 @@ public class RlcpTest {
     //    ------------------------------------------ ParseResponseBody(String, Class) ------------------------------------------
     @Test
     public void testParseCalculateValidResponseBodyCast() {
-        RlcpCalculateResponseBody responseBody = null;
-        try {
-            responseBody = Rlcp.parseResponseBody(rlcpCalculateResponseBody, RlcpCalculateResponseBody.class);
-        } catch (BadRlcpBodyException e) {
-            e.printStackTrace();
-        }
+        RlcpCalculateResponseBody responseBody = Rlcp.parseResponseBody(rlcpCalculateResponseBody, RlcpCalculateResponseBody.class);
         assertEquals(responseBody.getMethod().getName().toLowerCase(), "calculate");
         assertEquals(responseBody.getContentLength(), 256);
 
@@ -589,12 +567,7 @@ public class RlcpTest {
 
     @Test
     public void testParseCheckValidResponseBodyCast() {
-        RlcpCheckResponseBody responseBody = null;
-        try {
-            responseBody = Rlcp.parseResponseBody(rlcpCheckResponseBody, RlcpCheckResponseBody.class);
-        } catch (BadRlcpBodyException e) {
-            e.printStackTrace();
-        }
+        RlcpCheckResponseBody responseBody = Rlcp.parseResponseBody(rlcpCheckResponseBody, RlcpCheckResponseBody.class);
         assertEquals(responseBody.getMethod().getName().toLowerCase(), "check");
         assertEquals(responseBody.getContentLength(), 297);
 
@@ -604,12 +577,7 @@ public class RlcpTest {
 
     @Test
     public void testParseGenerateValidResponseBodyCast() {
-        RlcpGenerateResponseBody responseBody = null;
-        try {
-            responseBody = Rlcp.parseResponseBody(rlcpGenerateResponseBody, RlcpGenerateResponseBody.class);
-        } catch (BadRlcpBodyException e) {
-            e.printStackTrace();
-        }
+        RlcpGenerateResponseBody responseBody = Rlcp.parseResponseBody(rlcpGenerateResponseBody, RlcpGenerateResponseBody.class);
         assertEquals(responseBody.getMethod().getName().toLowerCase(), "generate");
         assertEquals(responseBody.getContentLength(), 319);
 
@@ -618,47 +586,47 @@ public class RlcpTest {
         assertTrue(responseBody.getDocument().asXML().contains("<Instructions><!--instructions--></Instructions>"));
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckResponseBodyCastExceptionIfGiveGenerateResponseBody() throws BadRlcpBodyException {
         RlcpCheckResponseBody responseBody = Rlcp.parseResponseBody(rlcpGenerateResponseBody, RlcpCheckResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCheckResponseBodyCastExceptionIfGiveCalculateResponseBody() throws BadRlcpBodyException {
         RlcpCheckResponseBody responseBody = Rlcp.parseResponseBody(rlcpCalculateResponseBody, RlcpCheckResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateResponseBodyCastExceptionIfGiveGenerateResponseBody() throws BadRlcpBodyException {
         RlcpCalculateResponseBody responseBody = Rlcp.parseResponseBody(rlcpGenerateResponseBody, RlcpCalculateResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseCalculateResponseBodyCastExceptionIfGiveCheckResponseBody() throws BadRlcpBodyException {
         RlcpCalculateResponseBody responseBody = Rlcp.parseResponseBody(rlcpCheckResponseBody, RlcpCalculateResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateResponseBodyCastExceptionIfGiveCheckResponseBody() throws BadRlcpBodyException {
         RlcpGenerateResponseBody responseBody = Rlcp.parseResponseBody(rlcpCheckResponseBody, RlcpGenerateResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = ClassCastException.class)
     public void testParseGenerateResponseBodyCastExceptionIfGiveCalculateResponseBody() throws BadRlcpBodyException {
         RlcpGenerateResponseBody responseBody = Rlcp.parseResponseBody(rlcpCalculateResponseBody, RlcpGenerateResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseGenerateResponseBodyCastExceptionBadBody() throws BadRlcpBodyException {
         RlcpGenerateResponseBody responseBody = Rlcp.parseResponseBody(rlcpGenerateResponseBody.replace("<Response>", "<>"), RlcpGenerateResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCheckResponseBodyCastExceptionBadBody() throws BadRlcpBodyException {
         RlcpCheckResponseBody responseBody = Rlcp.parseResponseBody(rlcpCheckResponseBody.replace("<Response>", "<>"), RlcpCheckResponseBody.class);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCalculateResponseBodyCastExceptionBadBody() throws BadRlcpBodyException {
         RlcpCalculateResponseBody responseBody = Rlcp.parseResponseBody(rlcpCalculateResponseBody.replace("<Response>", "<>"), RlcpCalculateResponseBody.class);
     }
@@ -823,17 +791,17 @@ public class RlcpTest {
         RlcpGenerateRequest request = (RlcpGenerateRequest) Rlcp.parseRequest(rlcpGenerateRequestBody);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BadRlcpRequestException.class)
     public void testParseGenerateRequestExceptionNoBody() throws BadRlcpRequestException {
         RlcpGenerateRequest request = (RlcpGenerateRequest) Rlcp.parseRequest(rlcpGenerateRequest.replace(rlcpGenerateRequestBody, ""));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BadRlcpRequestException.class)
     public void testParseCalculateRequestExceptionNoBody() throws BadRlcpRequestException {
         RlcpCalculateRequest request = (RlcpCalculateRequest) Rlcp.parseRequest(rlcpCalculateRequest.replace(rlcpCalculateRequestBody, ""));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BadRlcpRequestException.class)
     public void testParseCрeckRequestExceptionNoBody() throws BadRlcpRequestException {
         RlcpCheckRequest request = (RlcpCheckRequest) Rlcp.parseRequest(rlcpCheckRequest.replace(rlcpCheckRequestBody, ""));
     }
@@ -915,17 +883,17 @@ public class RlcpTest {
         RlcpGenerateRequestBody requestBody = (RlcpGenerateRequestBody) Rlcp.parseRequestBody(rlcpCheckRequestBody);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseGenerateBodyRequestExceptionBadHeader() throws BadRlcpBodyException {
         RlcpGenerateRequestBody requestBody = (RlcpGenerateRequestBody) Rlcp.parseRequestBody(rlcpGenerateRequestBody.replace("<Request>", "<>"));
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCheckBodyRequestExceptionBadHeader() throws BadRlcpBodyException {
         RlcpCheckRequestBody requestBody = (RlcpCheckRequestBody) Rlcp.parseRequestBody(rlcpCheckRequestBody.replace("<Request>", "<>"));
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCalculateBodyRequestExceptionBadHeader() throws BadRlcpBodyException {
         RlcpCalculateRequestBody requestBody = (RlcpCalculateRequestBody) Rlcp.parseRequestBody(rlcpCalculateRequestBody.replace("<Request>", "<>"));
     }
@@ -951,7 +919,7 @@ public class RlcpTest {
         RlcpCalculateResponse response = null;
         try {
             response = (RlcpCalculateResponse) Rlcp.parseResponse(rlcpCalculateResponse);
-        } catch (BadRlcpResponseException e) {
+        } catch (RlcpException e) {
             e.printStackTrace();
         }
         assertEquals(response.getMethod().getName().toLowerCase(), "calculate");
@@ -966,7 +934,7 @@ public class RlcpTest {
         RlcpCheckResponse response = null;
         try {
             response = (RlcpCheckResponse) Rlcp.parseResponse(rlcpCheckResponse);
-        } catch (BadRlcpResponseException e) {
+        } catch (RlcpException e) {
             e.printStackTrace();
         }
         assertEquals(response.getMethod().getName().toLowerCase(), "check");
@@ -981,7 +949,7 @@ public class RlcpTest {
         RlcpGenerateResponse response = null;
         try {
             response = (RlcpGenerateResponse) Rlcp.parseResponse(rlcpGenerateResponse);
-        } catch (BadRlcpResponseException e) {
+        } catch (RlcpException e) {
             e.printStackTrace();
         }
         assertEquals(response.getMethod().getName().toLowerCase(), "generate");
@@ -1023,17 +991,17 @@ public class RlcpTest {
         RlcpGenerateResponse response = (RlcpGenerateResponse) Rlcp.parseResponse(rlcpCalculateResponse);
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = RlcpException.class)
     public void testParseGenerateResponseExceptionBadBody() throws BadRlcpResponseException {
         RlcpGenerateResponse response = (RlcpGenerateResponse) Rlcp.parseResponse(rlcpGenerateResponse.replace("<Response>", "<>"));
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCheckResponseExceptionBadBody() throws BadRlcpResponseException {
         RlcpCheckResponse response = (RlcpCheckResponse) Rlcp.parseResponse(rlcpCheckResponse.replace("<Response>", "<>"));
     }
 
-    @Test(expected = BadRlcpResponseException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCalculateResponseExceptionBadBody() throws BadRlcpResponseException {
         RlcpCalculateResponse response = (RlcpCalculateResponse) Rlcp.parseResponse(rlcpCalculateResponse.replace("<Response>", "<>"));
     }
@@ -1074,7 +1042,7 @@ public class RlcpTest {
         RlcpCalculateResponseBody responseBody = null;
         try {
             responseBody = (RlcpCalculateResponseBody) Rlcp.parseResponseBody(rlcpCalculateResponseBody);
-        } catch (BadRlcpBodyException e) {
+        } catch (RlcpException e) {
             e.printStackTrace();
         }
         assertEquals(responseBody.getMethod().getName().toLowerCase(), "calculate");
@@ -1089,7 +1057,7 @@ public class RlcpTest {
         RlcpCheckResponseBody responseBody = null;
         try {
             responseBody = (RlcpCheckResponseBody) Rlcp.parseResponseBody(rlcpCheckResponseBody);
-        } catch (BadRlcpBodyException e) {
+        } catch (RlcpException e) {
             e.printStackTrace();
         }
         assertEquals(responseBody.getMethod().getName().toLowerCase(), "check");
@@ -1104,7 +1072,7 @@ public class RlcpTest {
         RlcpGenerateResponseBody responseBody = null;
         try {
             responseBody = (RlcpGenerateResponseBody) Rlcp.parseResponseBody(rlcpGenerateResponseBody);
-        } catch (BadRlcpBodyException e) {
+        } catch (RlcpException e) {
             e.printStackTrace();
         }
         assertEquals(responseBody.getMethod().getName().toLowerCase(), "generate");
@@ -1145,17 +1113,17 @@ public class RlcpTest {
         RlcpGenerateResponseBody responseBody = (RlcpGenerateResponseBody) Rlcp.parseResponseBody(rlcpCalculateResponseBody);
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseGenerateResponseBodyExceptionBadBody() throws BadRlcpBodyException {
         RlcpGenerateResponseBody responseBody = (RlcpGenerateResponseBody) Rlcp.parseResponseBody(rlcpGenerateResponseBody.replace("<Response>", "<>"));
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCheckResponseBodyExceptionBadBody() throws BadRlcpBodyException {
         RlcpCheckResponseBody responseBody = (RlcpCheckResponseBody) Rlcp.parseResponseBody(rlcpCheckResponseBody.replace("<Response>", "<>"));
     }
 
-    @Test(expected = BadRlcpBodyException.class)
+    @Test(expected = RlcpException.class)
     public void testParseCalculateResponseBodyExceptionBadBody() throws BadRlcpBodyException {
         RlcpCalculateResponseBody responseBody = (RlcpCalculateResponseBody) Rlcp.parseResponseBody(rlcpCalculateResponseBody.replace("<Response>", "<>"));
     }

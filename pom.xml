@@ -7,6 +7,18 @@
     <groupId>rlcp</groupId>
     <artifactId>rlcp</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -42,37 +54,4 @@
 
     </dependencies>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>synergian-repo</id>
-            <url>https://raw.github.com/synergian/wagon-git/releases</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <distributionManagement>
-        <repository>
-            <id>rlcp-repo</id>
-            <name>rlcp</name>
-            <url>git:master://git@bitbucket.org:efimchick/rlcp.git</url>
-        </repository>
-        <snapshotRepository>
-            <id>rlcp-repo</id>
-            <name>rlcp</name>
-            <url>git:master://git@bitbucket.org:efimchick/rlcp.git</url>
-        </snapshotRepository>
-        <site>
-            <id>rlcp-repo</id>
-            <url>git:master://git@bitbucket.org:efimchick/rlcp.git</url>
-        </site>
-    </distributionManagement>
-
-    <build>
-        <extensions>
-            <extension>
-                <groupId>ar.com.synergian</groupId>
-                <artifactId>wagon-git</artifactId>
-                <version>0.2.3</version>
-            </extension>
-        </extensions>
-    </build>
 </project>

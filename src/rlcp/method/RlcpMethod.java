@@ -9,6 +9,10 @@ import rlcp.exception.BadRlcpUrlException;
  * or Response String. Also provides some all-around useful methods.
  */
 public abstract class RlcpMethod {
+    public static Calculate Calculate = rlcp.method.Calculate.getInstance();
+    public static Generate Generate = rlcp.method.Generate.getInstance();
+    public static Check Check = rlcp.method.Check.getInstance();
+    public static Echo Echo = rlcp.method.Echo.getInstance();
 
     /**
      * Returns method-specified RlcpConnector instance. Should NEVER return
