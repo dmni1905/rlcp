@@ -53,7 +53,7 @@ public class ServerThread extends Thread {
 
         RlcpRequest request = null;
         try {
-            request = parseRequest(serverInput, request);
+            request = Rlcp.parseRequest(serverInput);
         } catch (UnsupportedRlcpMethodException ex) {
             Logger.log(ex);
             handleError(RlcpCode.UnsupportedMethod, "bad request");
@@ -76,13 +76,6 @@ public class ServerThread extends Thread {
             socketClose();
             Logger.log("Request is complete");
         }
-    }
-
-    private RlcpRequest parseRequest(String serverInput, RlcpRequest request) throws Exception {
-        String methodSupposed = getRawMethod(serverInput);
-        ServerMethod method = ServerMethod.lookForMethod(methodSupposed);
-        request = Rlcp.parseRequest(serverInput);
-        return request;
     }
 
     private boolean serverInputFailed(String serverInput) {

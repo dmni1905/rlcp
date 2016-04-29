@@ -52,7 +52,7 @@ public class Rlcp {
      * @see RlcpCheckRequest
      */
     public static <T extends RlcpRequest> T parseRequest(String rlcpRequestString, Class<T> clazz) throws BadRlcpRequestException {
-        return clazz.cast(parseRequest(rlcpRequestString, recognizeMethod(rlcpRequestString)));
+        return clazz.cast(parseRequest(rlcpRequestString, recognizeMethod(clazz)));
     }
 
     /**
@@ -81,7 +81,7 @@ public class Rlcp {
 
         RlcpRequestHeader parsedHeader;
         try {
-            parsedHeader = RlcpRequestHeader.parse(headerBuilder.toString());
+            parsedHeader = RlcpRequestHeader.parse(headerBuilder.toString(), method);
         } catch (BadRlcpHeaderException ex) {
             throw new BadRlcpRequestException(ex);
         }
@@ -154,7 +154,7 @@ public class Rlcp {
      * @see RlcpGenerateRequestBody
      */
     public static <T extends RlcpRequestBody> T parseRequestBody(String rlcpBodyString, Class<T> clazz) throws BadRlcpBodyException {
-        return clazz.cast(parseRequestBody(rlcpBodyString, recognizeMethod(rlcpBodyString)));
+        return clazz.cast(parseRequestBody(rlcpBodyString, recognizeMethod(clazz)));
     }
 
     private static RlcpRequestBody parseRequestBody(String rlcpBodyString, RlcpMethod method) throws BadRlcpBodyException {
@@ -195,7 +195,7 @@ public class Rlcp {
      * @see RlcpGenerateResponse
      */
     public static <T extends RlcpResponse> T parseResponse(String rlcpResponseString, Class<T> clazz){
-        return clazz.cast(parseResponse(rlcpResponseString, recognizeMethod(rlcpResponseString)));
+        return clazz.cast(parseResponse(rlcpResponseString, recognizeMethod(clazz)));
     }
 
     /**
@@ -257,7 +257,7 @@ public class Rlcp {
     }
 
     public static <T extends RlcpResponseBody> T parseResponseBody(String rlcpBodyString, Class<T> clazz){
-            return clazz.cast(parseResponseBody(rlcpBodyString, recognizeMethod(rlcpBodyString)));
+            return clazz.cast(parseResponseBody(rlcpBodyString, recognizeMethod(clazz)));
 
         }
 

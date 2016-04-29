@@ -100,7 +100,7 @@ public class RlcpConnector<Request extends RlcpRequest, Response extends RlcpRes
             } catch (Exception ex) {
             }
         }
-        return (Response) Rlcp.parseResponse(rawResponse);
+        return (Response) Rlcp.parseResponse(rawResponse, request.getMethod().getResponseClass());
     }
 
     private void send(String requestString, Socket socket) throws IOException {

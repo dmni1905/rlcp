@@ -185,4 +185,18 @@ public abstract class RlcpMethod {
             return null;
         }
     }
+
+    public static RlcpMethod recognizeMethod(Class clazz) {
+        String className = clazz.getName().toLowerCase();
+        if (className.contains("check")) {
+            return Check.getInstance();
+        } else if (className.contains("generate")) {
+            return Generate.getInstance();
+        } else if (className.contains("calculate")) {
+            return Calculate.getInstance();
+        } else if (className.contains("echo")) {
+            return Echo.getInstance();
+        }
+        return null;
+    }
 }

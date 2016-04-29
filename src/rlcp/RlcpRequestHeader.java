@@ -68,7 +68,7 @@ public class RlcpRequestHeader implements Serializable {
      * @return parsed from raw String RlcpRequestHeader instance
      * @throws BadRlcpHeaderException
      */
-    public static RlcpRequestHeader parse(String requestHeaderString) throws BadRlcpHeaderException {
+    public static RlcpRequestHeader parse(String requestHeaderString, RlcpMethod method) throws BadRlcpHeaderException {
         checkStringNotNullNotEmpty(requestHeaderString);
 
         String lineSeparator = getLineSeparatorFor(requestHeaderString);
@@ -99,7 +99,7 @@ public class RlcpRequestHeader implements Serializable {
             throw new BadRlcpHeaderException("too few elements in " + requestHeaderString);
         }
 
-        RlcpRequestHeader requestHeader = new RlcpRequestHeader(RlcpMethod.Recognizer.recognizeMethod(parsedMethod), parsedUrl, parsedContentLength);
+        RlcpRequestHeader requestHeader = new RlcpRequestHeader(method, parsedUrl, parsedContentLength);
         for (Map.Entry<String, String> entry : optionalHeaderFields.entrySet()) {
             String name = entry.getKey();
             String value = entry.getValue();
