@@ -2,6 +2,8 @@ package rlcp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import jdk.Exported;
 import org.junit.*;
 import rlcp.exception.BadRlcpUrlException;
 
@@ -27,7 +29,7 @@ public class RlcpUrlTest {
     public void tearDown() {
     }
 
-    @Test
+    @Test(expected = BadRlcpUrlException.class)
     public void test() throws Exception {
         System.out.println("RlcpUrl");
         String raw = "flow://vera:Rt5612@127.0.0.1:1732";
@@ -39,7 +41,7 @@ public class RlcpUrlTest {
         assertEquals(raw, url.toString());
     }
     
-    @Test
+    @Test(expected = BadRlcpUrlException.class)
     public void test2() throws Exception {
         System.out.println("RlcpUrl2");
         String raw = "flow://127.0.0.1:1732";

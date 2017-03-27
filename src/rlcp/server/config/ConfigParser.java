@@ -9,6 +9,10 @@ import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import rlcp.server.logger.Logger;
+import rlcp.util.Constants;
+
+import static rlcp.util.Constants.rlcpDefaultCheckUnitTimeLimitInSec;
+import static rlcp.util.Constants.rlcpDefaultRequestFlowTimeLimitInSec;
 
 /**
  * Configuration parser class.
@@ -22,7 +26,7 @@ public class ConfigParser {
         User defaultUser = new User("user", "user");
         List<User> defaultUserContainer = new ArrayList<User>();
         defaultUserContainer.add(defaultUser);
-        defaultConfig = new Config(defaultPort, defaultUserContainer);
+        defaultConfig = new Config(defaultPort, defaultUserContainer, rlcpDefaultRequestFlowTimeLimitInSec, rlcpDefaultCheckUnitTimeLimitInSec);
     }
 
     private ConfigParser() {
@@ -68,11 +72,31 @@ public class ConfigParser {
     private static Config parseConfigFromXML(Document configXml) {
         int port = parsePortFromXML(configXml);
         List<User> users = parseUsersFromXML(configXml);
-        return new Config(port, users);
+        long requestFlowTimeLimit = parseRequestFlowTimeLimit(configXml);
+        long checkUnitTimeLimit = parseCheckUnitTimeLimit(configXml);
+
+        return new Config(port, users, requestFlowTimeLimit, checkUnitTimeLimit);
     }
 
     private static int parsePortFromXML(Document xmlDoc) {
         return Integer.parseInt(xmlDoc.selectSingleNode("//Port").selectSingleNode("./@value").getText());
+    }
+
+    private static long parseRequestFlowTimeLimit(Document xmlDoc) {
+        try{
+            return Long.parseLong(xmlDoc.selectSingleNode("//RequestFlowTimeLimit").selectSingleNode("./@value").getText());
+        } catch (Exception e){
+            return rlcpDefaultRequestFlowTimeLimitInSec;
+        }
+    }
+
+    private static long parseCheckUnitTimeLimit(Document xmlDoc) {
+        try {
+            return Long.parseLong(xmlDoc.selectSingleNode("//CheckUnitTimeLimit").selectSingleNode("./@value").getText());
+        } catch (Exception e){
+            return rlcpDefaultCheckUnitTimeLimitInSec;
+        }
+
     }
 
     private static List<User> parseUsersFromXML(Document xmlDoc) {

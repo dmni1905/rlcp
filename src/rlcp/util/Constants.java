@@ -40,6 +40,6 @@ public class Constants {
     public static final String xPath_selectConditionForCalculating = "//" + CONDITIONS + "/" + CONDITION_FOR_CALCULATING + "/" + INPUT + "/comment()";
 
 
-    public static final long rlcpDefaultCheckUnitTimeLimitInSec = 5;
-    public static final long rlcpDefaultRequestFlowTimeLimitInSec = 10;
+    public static final long rlcpDefaultCheckUnitTimeLimitInSec = 10;
+    public static final long rlcpDefaultRequestFlowTimeLimitInSec = 20;
 }

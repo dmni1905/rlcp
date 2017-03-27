@@ -14,19 +14,24 @@ import static rlcp.util.Constants.rlcpDefaultRequestFlowTimeLimitInSec;
  */
 public class Config {
 
+    private final long requestFlowTimeLimit;
+    private final long checkUnitTimeLimit;
     private List<User> users;
     private int port;
 
     /**
      * Simple constructor.
-     *
-     * @param port  server port
+     *  @param port  server port
      * @param users list of server users. Must not be null.
+     * @param requestFlowTimeLimit
+     * @param checkUnitTimeLimit
      */
-    public Config(int port, List<User> users) {
+    public Config(int port, List<User> users, long requestFlowTimeLimit, long checkUnitTimeLimit) {
         Util.checkNotNull("UserList is null in Config constructor. It can be empty but never null", users);
         this.users = Collections.unmodifiableList(users);
         this.port = port;
+        this.requestFlowTimeLimit = requestFlowTimeLimit;
+        this.checkUnitTimeLimit = checkUnitTimeLimit;
     }
 
     /**
@@ -63,6 +68,8 @@ public class Config {
         Logger.log("Configuration is:");
         Logger.log("Port: " + port);
         Logger.log("Users: " + users);
+        Logger.log("Flow TimeLimit: " + requestFlowTimeLimit);
+        Logger.log("CheckUnit TimeLimit: " + checkUnitTimeLimit);
     }
 
     /**
@@ -71,7 +78,7 @@ public class Config {
      * @return time limits for request flow
      */
     public long getRequestFlowTimeLimit() {
-        return rlcpDefaultRequestFlowTimeLimitInSec;
+        return requestFlowTimeLimit;
     }
 
     /**
@@ -80,7 +87,7 @@ public class Config {
      * @return time limits for check unit
      */
     public long getCheckUnitTimeLimit() {
-        return rlcpDefaultCheckUnitTimeLimitInSec;
+        return checkUnitTimeLimit;
     }
 
 }
